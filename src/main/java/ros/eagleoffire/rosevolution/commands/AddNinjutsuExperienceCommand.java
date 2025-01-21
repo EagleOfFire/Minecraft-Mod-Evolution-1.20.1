@@ -1,4 +1,4 @@
-package ros.eagleoffire.commands;
+package ros.eagleoffire.rosevolution.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
