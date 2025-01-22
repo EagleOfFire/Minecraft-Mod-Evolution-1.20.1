@@ -2,7 +2,10 @@ package ros.eagleoffire.rosevolution.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.Suggestions;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -15,16 +18,27 @@ import ros.eagleoffire.rosevolution.network.packets.NinjutsuDataSyncS2CPacket;
 import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsuProvider;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public class GetNinjutsuLevelCommand {
 
     public GetNinjutsuLevelCommand(CommandDispatcher<CommandSourceStack> Dispatcher) {
-        Dispatcher.register(Commands.literal("ninjutsustats")
+        Dispatcher.register(Commands.literal("ninjutsu_stats")
+                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 .then(Commands.argument("target", StringArgumentType.string())
-                .executes(commandContext ->
-                GetProgressionVoiesNinjas(commandContext.getSource(),
-                        StringArgumentType.getString(commandContext, "target")))
+                        .suggests(this::suggestTargets)
+                        .executes(commandContext ->
+                                GetProgressionVoiesNinjas(commandContext.getSource(),
+                                        StringArgumentType.getString(commandContext, "target")))
                 ));
+    }
+
+    private CompletableFuture<Suggestions> suggestTargets(CommandContext<CommandSourceStack> source, SuggestionsBuilder builder) {
+        PlayerList playerList = source.getSource().getServer().getPlayerList();
+        for (ServerPlayer player : playerList.getPlayers()) {
+            builder.suggest(player.getName().getString());
+        }
+        return builder.buildFuture();
     }
 
     private int GetProgressionVoiesNinjas(CommandSourceStack source, String target) throws CommandSyntaxException {
