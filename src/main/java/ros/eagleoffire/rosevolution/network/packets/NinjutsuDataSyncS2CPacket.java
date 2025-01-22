@@ -8,32 +8,36 @@ import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsu;
 import java.util.function.Supplier;
 
 public class NinjutsuDataSyncS2CPacket {
-    private final int experience;
-    private final int level;
-    private final int chakra;
+    private final int experienceChakra;
+    private final int levelChakra;
+    private final int experienceHealth;
+    private final int levelHealth;
 
-    public NinjutsuDataSyncS2CPacket(PlayerNinjutsu ninjutsu) {
-        this.experience = ninjutsu.getExperience();
-        this.level = ninjutsu.getLevel();
-        this.chakra = ninjutsu.getMaxChakra();
+    public NinjutsuDataSyncS2CPacket(PlayerNinjutsu source) {
+        this.experienceChakra = source.getExperienceChakra();
+        this.levelChakra = source.getLevelChakra();
+        this.experienceHealth = source.getExperienceHealth();
+        this.levelHealth = source.getLevelHealth();
     }
 
     public NinjutsuDataSyncS2CPacket(FriendlyByteBuf buf) {
-        this.experience = buf.readInt();
-        this.level = buf.readInt();
-        this.chakra = buf.readInt();
+        this.experienceChakra = buf.readInt();
+        this.levelChakra = buf.readInt();
+        this.experienceHealth = buf.readInt();
+        this.levelHealth = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeInt(this.experience);
-        buf.writeInt(this.level);
-        buf.writeInt(this.chakra);
+        buf.writeInt(this.experienceChakra);
+        buf.writeInt(this.levelChakra);
+        buf.writeInt(this.experienceHealth);
+        buf.writeInt(this.levelHealth);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientNinjutsuData.set(experience,level,chakra);
+            ClientNinjutsuData.set(experienceChakra,levelChakra,experienceHealth,levelHealth);
         });
         return true;
     }

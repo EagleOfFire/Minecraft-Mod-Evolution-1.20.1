@@ -1,25 +1,26 @@
 package ros.eagleoffire.rosevolution.client;
 
 public class ClientNinjutsuData {
-    private static int experience;
-    private static int level;
-    private static int chakra;
+    private static int experienceChakra;
+    private static int levelChakra;
+    private static int experienceHealth;
+    private static int levelHealth;
 
-    public static void set(int exp, int lvl, int ch) {
-        experience = exp;
-        level = lvl;
-        chakra = ch;
+    public static void set(int expC, int lvlC, int expH, int lvlH) {
+        experienceChakra = expC;
+        levelChakra = lvlC;
+        experienceHealth = expH;
+        levelHealth = lvlH;
     }
 
-    public static int getExperience() {
-        return experience;
+    public int getExperienceChakra(){
+        return experienceChakra;
     }
-
-    public static int getLevel() {
-        return level;
+    public int getLevelChakra(){
+        return levelChakra;
     }
-
-    public static int getChakra() {
-        return chakra;
+    public int getExperienceHealth() { return experienceHealth; }
+    public int getLevelHealth(){
+        return levelHealth;
     }
 }

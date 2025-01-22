@@ -32,17 +32,21 @@ public class GetNinjutsuLevelCommand {
         @NotNull
         ServerPlayer TargetedPlayer = Objects.requireNonNull(OnlinePlayer.getPlayerByName(target));
 
-        TargetedPlayer.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(progression -> {
+        TargetedPlayer.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
             source.sendSuccess(() -> {
                 return Component.literal("Player " + target + " has:\n")
-                        .append(Component.literal("- Total Experience: " + progression.getExperience() + "\n"))
-                        .append(Component.literal("- Total Level: " + progression.getLevel() + "\n"))
-                        .append(Component.literal("- Total Max Health: " + TargetedPlayer.getMaxHealth() + "\n")
+                        .append(Component.literal("- Total Experience Chakra: " + ninjutsu.getExperienceChakra() + "\n")
+                                .withStyle(style -> style.withColor(ChatFormatting.BLUE)))
+                        .append(Component.literal("- Total Level Chakra: " + ninjutsu.getLevelChakra() + "\n")
+                                .withStyle(style -> style.withColor(ChatFormatting.BLUE)))
+                        .append(Component.literal("- Total Experience Health: " + ninjutsu.getExperienceHealth() + "\n")
                                 .withStyle(style -> style.withColor(ChatFormatting.RED)))
-                        .append(Component.literal("- Total Max Chakra: " + progression.getMaxChakra() + "\n")
-                                .withStyle(style -> style.withColor(ChatFormatting.BLUE)));
+                        .append(Component.literal("- Total Level Health: " + ninjutsu.getLevelHealth() + "\n")
+                                .withStyle(style -> style.withColor(ChatFormatting.RED)))
+                        .append(Component.literal("- Total Max Health: " + TargetedPlayer.getMaxHealth() + "\n")
+                                .withStyle(style -> style.withColor(ChatFormatting.RED)));
             }, true);
-            ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(progression), TargetedPlayer);
+            ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
         });
         return 1;
     }

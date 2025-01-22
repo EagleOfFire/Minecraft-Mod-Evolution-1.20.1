@@ -9,6 +9,8 @@ import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import org.jetbrains.annotations.NotNull;
+import ros.eagleoffire.rosevolution.network.ModMessages;
+import ros.eagleoffire.rosevolution.network.packets.NinjutsuDataSyncS2CPacket;
 import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsuProvider;
 import net.minecraft.network.chat.Component;
 
@@ -35,10 +37,11 @@ public class AddNinjutsuExperienceCommand {
 
         TargetedPlayer.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
             source.sendSuccess(() -> {
-                ninjutsu.addExperience(qts);
-                return Component.literal("Successfully added " + qts + "XP to " + voie + " for player " + target);
+                ninjutsu.addExperienceChakra(qts);
+                ninjutsu.addExperienceHealth(qts);
+                return Component.literal("Successfully added " + qts + "XP to both health and chakra for player " + target);
             }, true);
-            //ModMessages.sendToPlayer(new FuinjutsuDataSyncS2CPacket(progression.getByName("Fuinjutsu")), TargetedPlayer);
+            ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
         });
         return 1;
     }
