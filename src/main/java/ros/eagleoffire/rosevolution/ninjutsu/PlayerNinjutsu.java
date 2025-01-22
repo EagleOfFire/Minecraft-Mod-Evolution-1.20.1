@@ -15,7 +15,10 @@ public class PlayerNinjutsu {
         return levelChakra;
     }
     public void addExperienceChakra(int add){
-           this.experienceChakra = experienceChakra+add;
+        this.experienceChakra = experienceChakra+add;
+    }
+    public void setLevelChakra(int lvl){
+        this.levelChakra = lvl;
     }
 
     public int getExperienceHealth() { return experienceHealth; }
@@ -24,6 +27,9 @@ public class PlayerNinjutsu {
     }
     public void addExperienceHealth(int add){
            this.experienceHealth = experienceHealth+add;
+    }
+    public void setLevelHealth(int lvl){
+        this.levelHealth = lvl;
     }
 
 
