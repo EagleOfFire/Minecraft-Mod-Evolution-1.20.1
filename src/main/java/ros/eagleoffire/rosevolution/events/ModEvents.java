@@ -15,6 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import ros.eagleoffire.rosevolution.commands.AddNinjutsuExperienceCommand;
 import ros.eagleoffire.rosevolution.commands.GetNinjutsuLevelCommand;
 import ros.eagleoffire.rosevolution.ROSEvolution;
+import ros.eagleoffire.rosevolution.commands.SetPlayerClanCommand;
 import ros.eagleoffire.rosevolution.network.PacketHandler;
 import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsu;
 import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsuProvider;
@@ -27,6 +28,7 @@ public class ModEvents {
     public static void onCommandsRegister(RegisterCommandsEvent event) {
         new GetNinjutsuLevelCommand(event.getDispatcher());
         new AddNinjutsuExperienceCommand(event.getDispatcher());
+        new SetPlayerClanCommand(event.getDispatcher());
         ConfigCommand.register(event.getDispatcher());
     }
 
