@@ -14,6 +14,7 @@ import net.minecraft.server.players.PlayerList;
 import org.jetbrains.annotations.NotNull;
 import ros.eagleoffire.rosevolution.network.ModMessages;
 import ros.eagleoffire.rosevolution.network.packets.NinjutsuDataSyncS2CPacket;
+import ros.eagleoffire.rosevolution.ninjutsu.PlayerLevelManager;
 import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsuProvider;
 import net.minecraft.network.chat.Component;
 
@@ -69,9 +70,11 @@ public class AddNinjutsuExperienceCommand {
                     switch (selectedSide) {
                         case Chakra:
                             ninjutsu.addExperienceChakra(qts);
+                            PlayerLevelManager.checkChakraLevelUp(TargetedPlayer,ninjutsu);
                             return Component.literal("Successfully added " + qts + " XP to Chakra for player " + target);
                         case Health:
                             ninjutsu.addExperienceHealth(qts);
+                            PlayerLevelManager.checkHealthLevelUp(TargetedPlayer,ninjutsu);
                             return Component.literal("Successfully added " + qts + " XP to Health for player " + target);
                     }
                 } catch (IllegalArgumentException e) {

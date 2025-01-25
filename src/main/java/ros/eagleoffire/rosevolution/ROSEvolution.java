@@ -8,6 +8,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import ros.eagleoffire.rosevolution.network.ModMessages;
+import ros.eagleoffire.rosevolution.sound.ModSounds;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ROSEvolution.MODID)
@@ -19,6 +20,8 @@ public class ROSEvolution
     public ROSEvolution()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModSounds.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);

@@ -6,12 +6,12 @@ Based on the provided document, here's a roadmap for developing the Minecraft mo
 1. **Define Functional Requirements**  
    - Implement a tier system governed by XP gains with daily limits.  
    - Introduce micro-quests for passive XP gains.  
-   - Allow clan assignment and specializations for players upon server entry.  
+   - ~~Allow clan assignment and specializations for players upon server entry~~.  
    - Develop token-based jutsu unlocking and spell system.  
 
 2. **Establish Administrative Commands**  
-   - Commands for viewing and adjusting player stats without modifying tiers.  
-   - Permissions for specific roles to control XP and stats.  
+   - ~~Commands for viewing and adjusting player stats without modifying tiers.~~ 
+   - ~~Permissions for specific roles to control XP and stats.~~ 
 
 3. **Outline User Experience (UX) Features**  
    - Notifications and sound effects for tier upgrades.  
@@ -54,9 +54,9 @@ Based on the provided document, here's a roadmap for developing the Minecraft mo
 
 ### **Phase 4: Administrative Tools**
 1. **Commands for Moderators and Staff**  
-   - `/clanset` for assigning clans.  
-   - `/givexp` to add XP bypassing limits.  
-   - `/sethp` and `/setchakra` for temporary stat changes during animations.  
+   - ~~`/clanset` for assigning clans.~~
+   - ~~`/givexp` to add XP bypassing limits.~~  
+   - ~~`/sethp` and `/setchakra` for temporary stat changes during animations.~~  
    - `/statanim` to view personal stats.
 
 2. **Debug and Monitoring Tools**  

@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import ros.eagleoffire.rosevolution.network.ModMessages;
 import ros.eagleoffire.rosevolution.network.packets.NinjutsuDataSyncS2CPacket;
+import ros.eagleoffire.rosevolution.network.packets.OpenLevelUpScreenS2CPacket;
 
 import java.awt.*;
 import java.util.UUID;
@@ -15,15 +16,29 @@ import java.util.UUID;
 public class PlayerLevelManager {
     private static final UUID HEALTH_BONUS_UUID = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 
-    public static void checkLevelUp(Player player, PlayerNinjutsu cap) {
+    public static void checkChakraLevelUp(Player player, PlayerNinjutsu cap) {
         int requiredXp = getXpForNextLevel(cap.getLevelChakra());
         if (cap.getExperienceChakra() >= requiredXp) {
             cap.setLevelChakra(cap.getLevelChakra() + 1);
             cap.addExperienceChakra(-requiredXp);
             applyStatUpgrades(player, cap.getLevelChakra());
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(cap), (ServerPlayer) player);
+            //TODO change custom screen to definitive one
+            ModMessages.sendToPlayer(new OpenLevelUpScreenS2CPacket(), (ServerPlayer) player);
             player.sendSystemMessage(Component.literal("Level Up!"));
-            //TODO add custom screen
+        }
+    }
+
+    public static void checkHealthLevelUp(Player player, PlayerNinjutsu cap) {
+        int requiredXp = getXpForNextLevel(cap.getLevelHealth());
+        if (cap.getExperienceHealth() >= requiredXp) {
+            cap.setLevelHealth(cap.getLevelHealth() + 1);
+            cap.addExperienceHealth(-requiredXp);
+            applyStatUpgrades(player, cap.getLevelHealth());
+            ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(cap), (ServerPlayer) player);
+            //TODO change custom screen to definitive one
+            ModMessages.sendToPlayer(new OpenLevelUpScreenS2CPacket(), (ServerPlayer) player);
+            player.sendSystemMessage(Component.literal("Level Up!"));
         }
     }
 
@@ -51,6 +66,7 @@ public class PlayerLevelManager {
             );
 
             healthAttribute.addPermanentModifier(healthModifier);
+            //TODO add chakra modifier
         }
     }
 }

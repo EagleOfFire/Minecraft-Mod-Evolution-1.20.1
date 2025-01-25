@@ -7,7 +7,9 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import ros.eagleoffire.rosevolution.ROSEvolution;
+import ros.eagleoffire.rosevolution.network.packets.AddChakraC2SPacket;
 import ros.eagleoffire.rosevolution.network.packets.NinjutsuDataSyncS2CPacket;
+import ros.eagleoffire.rosevolution.network.packets.OpenLevelUpScreenS2CPacket;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -32,6 +34,18 @@ public class ModMessages {
                 .decoder(NinjutsuDataSyncS2CPacket::new)
                 .encoder(NinjutsuDataSyncS2CPacket::toBytes)
                 .consumerMainThread(NinjutsuDataSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(AddChakraC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(AddChakraC2SPacket::new)
+                .encoder(AddChakraC2SPacket::toBytes)
+                .consumerMainThread(AddChakraC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(OpenLevelUpScreenS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(OpenLevelUpScreenS2CPacket::new)
+                .encoder(OpenLevelUpScreenS2CPacket::toBytes)
+                .consumerMainThread(OpenLevelUpScreenS2CPacket::handle)
                 .add();
     }
 
