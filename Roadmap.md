@@ -22,9 +22,9 @@ Based on the provided document, here's a roadmap for developing the Minecraft mo
 ### **Phase 2: Core Systems Development**
 1. **XP and Tier Progression System**  
    - Develop logic for life and chakra XP accumulation through micro-quests:  
-     - Stay connected for 10 minutes.  
-     - Traverse 5000 blocks.  
-     - Inflict/receive damage every 100 ticks (with cooldown).  
+     - ~~Stay connected for 10 minutes.~~ 
+     - ~~Traverse 5000 blocks.~~
+     - ~~Inflict/receive damage every 100 ticks (with cooldown).~~  
      - Daily login bonus.  
 
 2. **Player Stats Management**  

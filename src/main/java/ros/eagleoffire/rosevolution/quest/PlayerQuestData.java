@@ -15,3 +15,4 @@ public class PlayerQuestData {
         return activeTicks;
     }
 }
+//TODO : addthe other quest player data
