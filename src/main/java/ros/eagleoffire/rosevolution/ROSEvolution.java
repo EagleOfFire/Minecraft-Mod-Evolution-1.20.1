@@ -8,6 +8,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import ros.eagleoffire.rosevolution.network.ModMessages;
+import ros.eagleoffire.rosevolution.quest.ActivityQuestTracker;
 import ros.eagleoffire.rosevolution.sound.ModSounds;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -25,6 +26,7 @@ public class ROSEvolution
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(ActivityQuestTracker.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

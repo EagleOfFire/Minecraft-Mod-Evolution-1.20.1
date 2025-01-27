@@ -70,11 +70,11 @@ public class AddNinjutsuExperienceCommand {
                     switch (selectedSide) {
                         case Chakra:
                             ninjutsu.addExperienceChakra(qts);
-                            PlayerLevelManager.checkChakraLevelUp(TargetedPlayer,ninjutsu);
+                            PlayerLevelManager.checkLevelUps(TargetedPlayer,ninjutsu);
                             return Component.literal("Successfully added " + qts + " XP to Chakra for player " + target);
                         case Health:
                             ninjutsu.addExperienceHealth(qts);
-                            PlayerLevelManager.checkHealthLevelUp(TargetedPlayer,ninjutsu);
+                            PlayerLevelManager.checkLevelUps(TargetedPlayer,ninjutsu);
                             return Component.literal("Successfully added " + qts + " XP to Health for player " + target);
                     }
                 } catch (IllegalArgumentException e) {
