@@ -40,9 +40,8 @@ public class PlayerLevelManager {
         }
     }
 
-    private static int getXpForNextLevel(int level) {
-        return level * 100; // Example: XP required increases linearly
-        //TODO change equation to match excel sheet
+    public static int getXpForNextLevel(int level) {
+        return (int) (0.8378* Math.pow(1.01,level));
     }
 
     private static void applyStatUpgrades(Player player, int level) {
@@ -53,7 +52,7 @@ public class PlayerLevelManager {
             healthAttribute.removeModifier(HEALTH_BONUS_UUID);
 
             // Calculate bonus health (e.g., +2 health per level)
-            double bonusHealth = (level - 1) * 2.0;
+            double bonusHealth = 10 + ((level - 1) * 1.0);
 
             // Create and add the new modifier
             AttributeModifier healthModifier = new AttributeModifier(

@@ -70,11 +70,8 @@ public class SetPlayerClanCommand {
         ServerPlayer TargetedPlayer = Objects.requireNonNull(OnlinePlayer.getPlayerByName(target));
 
         TargetedPlayer.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
-            source.sendSuccess(() -> {
-                //TODO finaliser le fonction avec l'ajout des clans
-                return Component.literal("The Player " + target + " is now part of the clan " + clan)
-                                .withStyle(style -> style.withColor(ChatFormatting.BLUE));
-            }, true);
+            source.sendSuccess(() -> Component.literal("The Player " + target + " is now part of the clan " + clan)
+                            .withStyle(style -> style.withColor(ChatFormatting.BLUE)), true);
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
         });
         return 1;
