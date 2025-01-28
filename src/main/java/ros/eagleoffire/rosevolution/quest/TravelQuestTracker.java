@@ -33,10 +33,10 @@ public class TravelQuestTracker {
                 data.addDistanceTraveled(distanceTraveled);
 
                 // Check if distance traveled meets quest goal
-                if (data.getDistanceTraveled() >= 5000 && !data.isOnCooldown()) {
+                if (data.getDistanceTraveled() >= 5000 && !data.isTravelOnCooldown()) {
                     grantRewards(serverPlayer);
                     data.resetDistanceTraveled();
-                    data.setCooldown(System.currentTimeMillis());
+                    data.setTravelCooldown(System.currentTimeMillis());
                 }
             }
         }
@@ -58,48 +58,5 @@ public class TravelQuestTracker {
     @SubscribeEvent
     public static void onServerStop(ServerStoppingEvent event) {
         playerData.clear(); // Clear data when the server stops
-    }
-
-    // Inner class for tracking player quest data
-    private static class PlayerQuestData {
-        private double totalDistanceTraveled = 0;
-        private double lastX = Double.NaN, lastY = Double.NaN, lastZ = Double.NaN;
-        private long cooldownEndTime = 0;
-
-        public double calculateDistance(double currentX, double currentY, double currentZ) {
-            if (Double.isNaN(lastX)) { // Initialize position tracking
-                lastX = currentX;
-                lastY = currentY;
-                lastZ = currentZ;
-                return 0;
-            }
-            double distance = Math.sqrt((currentX - lastX) * (currentX - lastX)
-                    + (currentY - lastY) * (currentY - lastY)
-                    + (currentZ - lastZ) * (currentZ - lastZ));
-            lastX = currentX;
-            lastY = currentY;
-            lastZ = currentZ;
-            return distance;
-        }
-
-        public void addDistanceTraveled(double distance) {
-            totalDistanceTraveled += distance;
-        }
-
-        public double getDistanceTraveled() {
-            return totalDistanceTraveled;
-        }
-
-        public void resetDistanceTraveled() {
-            totalDistanceTraveled = 0;
-        }
-
-        public boolean isOnCooldown() {
-            return System.currentTimeMillis() < cooldownEndTime;
-        }
-
-        public void setCooldown(long currentTimeMillis) {
-            cooldownEndTime = currentTimeMillis + 30 * 60 * 1000; // 30 minutes cooldown
-        }
     }
 }

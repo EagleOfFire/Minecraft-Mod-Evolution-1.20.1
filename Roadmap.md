@@ -25,7 +25,7 @@ Based on the provided document, here's a roadmap for developing the Minecraft mo
      - ~~Stay connected for 10 minutes.~~ 
      - ~~Traverse 5000 blocks.~~
      - ~~Inflict/receive damage every 100 ticks (with cooldown).~~  
-     - Daily login bonus.  
+     - ~~Daily login bonus.~~  
 
 2. **Player Stats Management**  
    - Implement dynamic updates to life and chakra stats without resetting values.  

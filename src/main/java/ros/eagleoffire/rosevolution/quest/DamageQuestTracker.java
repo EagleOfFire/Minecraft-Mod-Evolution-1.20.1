@@ -17,7 +17,6 @@ import java.util.UUID;
 @Mod.EventBusSubscriber
 public class DamageQuestTracker {
     private static final Map<UUID, PlayerQuestData> playerData = new HashMap<>();
-    private static final long FIVE_MINUTES_MILLIS = 5 * 60 * 1000; // 5 minutes in milliseconds
 
     @SubscribeEvent
     public static void onPlayerDamage(LivingDamageEvent event) {
@@ -31,10 +30,10 @@ public class DamageQuestTracker {
         data.addDamageReceived(event.getEntity().getLastHurtByMob() == serverPlayer ? event.getAmount() : 0);
 
         // Check if quest progress meets the requirement
-        if (data.getTotalDamage() >= 100 && !data.isOnCooldown()) {
+        if (data.getTotalDamage() >= 100 && !data.isDamageOnCooldown()) {
             grantRewards(serverPlayer);
             data.resetDamage();
-            data.setCooldown(System.currentTimeMillis());
+            data.setDamageCooldown(System.currentTimeMillis());
         }
     }
 
@@ -54,37 +53,5 @@ public class DamageQuestTracker {
     @SubscribeEvent
     public static void onServerStop(ServerStoppingEvent event) {
         playerData.clear(); // Clear data when the server stops
-    }
-
-    // Inner class for tracking player quest data
-    private static class PlayerQuestData {
-        private double damageDealt = 0;
-        private double damageReceived = 0;
-        private long cooldownEndTime = 0;
-
-        public void addDamageDealt(double damage) {
-            damageDealt += damage;
-        }
-
-        public void addDamageReceived(double damage) {
-            damageReceived += damage;
-        }
-
-        public double getTotalDamage() {
-            return damageDealt + damageReceived;
-        }
-
-        public void resetDamage() {
-            damageDealt = 0;
-            damageReceived = 0;
-        }
-
-        public boolean isOnCooldown() {
-            return System.currentTimeMillis() < cooldownEndTime;
-        }
-
-        public void setCooldown(long currentTimeMillis) {
-            cooldownEndTime = currentTimeMillis + FIVE_MINUTES_MILLIS; // 5 minutes cooldown
-        }
     }
 }
