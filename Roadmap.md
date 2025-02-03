@@ -43,8 +43,10 @@ Based on the provided document, here's a roadmap for developing the Minecraft mo
    - Ensure AFK players do not earn passive XP.
 
 2. **Token-Based Jutsu Learning System**  
+   - a menu in achievement style to select spé with not available one locked
+   - in each menu a row with each rank and unavailable rank locked
    - Create an intuitive menu for players to redeem tokens for jutsus.  
-   - Remove tokens upon jutsu acquisition.  
+   - Remove tokens upon jutsu acquisition.
 
 3. **Notification System**  
    - Add visual and audio feedback for milestone achievements.  
