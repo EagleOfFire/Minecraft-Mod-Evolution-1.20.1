@@ -1,25 +1,23 @@
 package ros.eagleoffire.rosevolution.screen;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 import ros.eagleoffire.rosevolution.ROSEvolution;
+import ros.eagleoffire.rosevolution.config.ModClientConfigs;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class SpellSelectScreen extends Screen {
@@ -30,7 +28,11 @@ public class SpellSelectScreen extends Screen {
 
     private final LocalPlayer player;
     private final int imageWidht, imageHeight;
-    private int leftPos,topPos;
+    private int leftPos, topPos;
+
+    private DynamicTexture cachedTexture;
+    ;
+    private ResourceLocation cachedTextureLocation;
 
     public SpellSelectScreen(LocalPlayer player) {
         super(TITLE);
@@ -46,50 +48,46 @@ public class SpellSelectScreen extends Screen {
         this.leftPos = (this.width - this.imageWidht) / 2;
         this.topPos = (this.height - this.imageHeight) / 2;
 
-        if(this.minecraft == null) return;
+        String textureName = "button.png";
+        cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
 
+        if (cachedTexture != null) {
+            cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+            Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
+            System.out.println("✅ Successfully registered texture: " + cachedTextureLocation);
+        } else {
+            System.out.println("❌ Failed to load texture: " + textureName);
+        }
         loadButtonsFromConfig();
 
     }
 
     private void loadButtonsFromConfig() {
-        Path configPath = Paths.get(Minecraft.getInstance().gameDirectory.getPath(), "config/rosevolution/spell_menu.json");
-        if (!Files.exists(configPath)) return;
+        List<String> buttonTexts = ModClientConfigs.BUTTON_TEXTS.get();
+        List<String> buttonCommands = ModClientConfigs.BUTTON_COMMANDS.get();
 
-       try {
-           String json = Files.readString(configPath);
-           List<Map<String, String>> buttonConfigs = new Gson().fromJson(json, new TypeToken<List<Map<String, String>>>() {}.getType());
-           int buttonY = this.topPos + 20;
+        for (int i = 0; i < buttonTexts.size() && i < buttonCommands.size(); i++) {
+            int buttonX = this.leftPos + 10;
+            int buttonY = this.topPos + 30 + (i * 20);
+            String text = buttonTexts.get(i);
+            String command = buttonCommands.get(i);
 
-           for (Map<String, String> config : buttonConfigs) {
-               String text = config.getOrDefault("text", "Button");
-               String command = config.getOrDefault("command", "");
-               String imagePath = config.getOrDefault("image", "textures/gui/default_button.png");
-
-               ResourceLocation image = new ResourceLocation(ROSEvolution.MODID, imagePath);
-
-               if(imagePath.endsWith(".png")) {
-                   addRenderableWidget(new ImageButton(
-                           this.leftPos + 8 , buttonY, 80, 20,
-                           0,0,20,
-                           image, 80, 40,
-                           btn -> executeCommand(command)
-                   ));
-               } else {
-                   addRenderableWidget(Button.builder(Component.literal(text), btn -> executeCommand(command))
-                           .bounds(this.leftPos + 8, buttonY, 80, 20)
-                           .tooltip(Tooltip.create(Component.literal(text)))
-                           .build());
-               }
-               buttonY += 25;
-           }
-       } catch (IOException e){
-           e.printStackTrace();
-       }
+            addRenderableWidget(Button.builder(
+                            Component.literal(text),
+                            button -> {
+                                if (this.minecraft != null && this.minecraft.player != null) {
+                                    String playerName = this.minecraft.player.getGameProfile().getName();
+                                    String processedCommand = command.replace("@s", playerName);
+                                    executeCommand(processedCommand);
+                                }
+                            })
+                    .bounds(buttonX, buttonY, 150, 20)
+                    .build());
+        }
     }
 
-    private void executeCommand(String command){
-        if(this.minecraft != null && this.minecraft.player != null && !command.isEmpty()){
+    private void executeCommand(String command) {
+        if (this.minecraft != null && this.minecraft.player != null && !command.isEmpty()) {
             this.minecraft.player.connection.sendCommand(command);
         }
     }
@@ -97,26 +95,17 @@ public class SpellSelectScreen extends Screen {
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         renderBackground(graphics);
-        graphics.blit(TEXTURE, this.leftPos, this.topPos, 0,0, this.imageWidht, this.imageHeight);
+        graphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidht, this.imageHeight);
         super.render(graphics, mouseX, mouseY, partialTicks);
 
-        graphics.drawString(this.font,
-                TITLE,
-                this.leftPos + 8,
-                this.topPos + 8,
-                0x404040,
-                false);
+        if (cachedTextureLocation != null) {
+            graphics.blit(cachedTextureLocation, 50, 50, 0, 0, 100, 100, 100, 100);
+        } else {
+        }
 
-        graphics.drawString(this.font,
-                "Player Name: " + this.player.getScoreboardName(),
-                this.leftPos + 8,
-                this.topPos + 45,
-                0xFF0000,
-                false);
-
-        //TODO draw the background
-        //TODO draw nodes in a tree-like structure similar to advancements
+        graphics.drawString(this.font, TITLE, this.leftPos + 8, this.topPos + 8, 0x404040, false);
     }
+
 
     @Override
     public boolean isPauseScreen() {

@@ -28,8 +28,8 @@ public class ROSEvolution
 
         ModSounds.register(modEventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ModClientConfigs.SPEC, ROSEvolution.MODID + "-client.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModCommonConfigs.SPEC, ROSEvolution.MODID + "-common.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ModClientConfigs.SPEC, ROSEvolution.MODID + "/" + ROSEvolution.MODID + "-client.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModCommonConfigs.SPEC, ROSEvolution.MODID + "/" + ROSEvolution.MODID + "-common.toml");
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
