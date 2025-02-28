@@ -20,21 +20,29 @@ public class ModClientConfigs {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
 
-    public static final ForgeConfigSpec.ConfigValue<List<String>> BUTTON_TEXTS;
-    private static final ForgeConfigSpec.ConfigValue<List<String>> BUTTON_IMAGES_RAW; // Store as raw strings
-    public static final ForgeConfigSpec.ConfigValue<List<String>> BUTTON_COMMANDS;
+    public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_NAMES;
+    private static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_ICON_RAW; // Store as raw strings
+    public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_COMMAND;
+    public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_RANKS;
+    public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_CATEGORIES;
 
     static {
         BUILDER.push("Configs for ROS Evolution Mod");
 
-        BUTTON_TEXTS = BUILDER.comment("Text labels for buttons in the dynamic menu.")
-                .define("Button Texts", List.of("Button 1", "Button 2"));
+        SPELLS_NAMES = BUILDER.comment("Libellés des boutons dans le menu dynamique.")
+                .define("Textes des boutons", List.of("Bouton 1", "Bouton 2"));
 
-        BUTTON_IMAGES_RAW = BUILDER.comment("Image paths for buttons in the dynamic menu.")
-                .define("Button Images", List.of("button.png", "button.png"));
+        SPELLS_ICON_RAW = BUILDER.comment("Chemins des images pour les boutons du menu dynamique.")
+                .define("Images des boutons", List.of("button.png", "button.png"));
 
-        BUTTON_COMMANDS = BUILDER.comment("Commands that each button will execute when clicked.")
-                .define("Button Commands", List.of("gamemode survival @s", "gamemode creative @s"));
+        SPELLS_COMMAND = BUILDER.comment("Commandes exécutées par chaque bouton lorsqu'il est cliqué.")
+                .define("Commandes des boutons", List.of("gamemode survival @s", "gamemode creative @s"));
+
+        SPELLS_RANKS = BUILDER.comment("Niveaux ou rangs associés aux boutons du menu dynamique.")
+                .define("Rang du spell", List.of("A", "B"));
+
+        SPELLS_CATEGORIES = BUILDER.comment("Catégories associées aux spell du menu dynamique.")
+                .define("Catégories du spell", List.of("Element", "Genjutsu"));
 
         BUILDER.pop();
         SPEC = BUILDER.build();
@@ -46,7 +54,7 @@ public class ModClientConfigs {
     public static Map<String, DynamicTexture> getButtonImages() {
         Map<String, DynamicTexture> textures = new HashMap<>();
 
-        BUTTON_IMAGES_RAW.get().forEach(path -> {
+        SPELLS_ICON_RAW.get().forEach(path -> {
             String cleanPath = path.contains(":") ? path.split(":")[1] : path;
             Path configPath = FMLPaths.CONFIGDIR.get().resolve("rosevolution/textures/" + cleanPath);
             File textureFile = configPath.toFile();

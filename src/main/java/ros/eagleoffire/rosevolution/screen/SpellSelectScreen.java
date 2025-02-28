@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -72,17 +73,24 @@ public class SpellSelectScreen extends Screen {
             String text = buttonTexts.get(i);
             String command = buttonCommands.get(i);
 
-            addRenderableWidget(Button.builder(
-                            Component.literal(text),
-                            button -> {
-                                if (this.minecraft != null && this.minecraft.player != null) {
-                                    String playerName = this.minecraft.player.getGameProfile().getName();
-                                    String processedCommand = command.replace("@s", playerName);
-                                    executeCommand(processedCommand);
-                                }
-                            })
-                    .bounds(buttonX, buttonY, 150, 20)
-                    .build());
+            if (cachedTextureLocation != null) {
+                addRenderableWidget(new ImageButton(
+                        buttonX, buttonY + (i * 20), // X and Y position
+                        20, 20, // Width and Height
+                        0, 0, // Texture X and Y (start of image)
+                        20, // Amount to shift Y on click
+                        cachedTextureLocation, // Texture location
+                        20, 40, // Total texture size (width, height of full image)
+                        (button) -> {
+                            if (this.minecraft != null && this.minecraft.player != null) {
+                                String playerName = this.minecraft.player.getGameProfile().getName();
+                                String processedCommand = command.replace("@s", playerName);
+                                executeCommand(processedCommand);
+                            }
+                        }));
+            } else {
+                System.out.println("Can't draw image, texture is null");
+            }
         }
     }
 
@@ -97,11 +105,6 @@ public class SpellSelectScreen extends Screen {
         renderBackground(graphics);
         graphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidht, this.imageHeight);
         super.render(graphics, mouseX, mouseY, partialTicks);
-
-        if (cachedTextureLocation != null) {
-            graphics.blit(cachedTextureLocation, 50, 50, 0, 0, 100, 100, 100, 100);
-        } else {
-        }
 
         graphics.drawString(this.font, TITLE, this.leftPos + 8, this.topPos + 8, 0x404040, false);
     }
