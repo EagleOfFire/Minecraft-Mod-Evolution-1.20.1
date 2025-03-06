@@ -64,8 +64,8 @@ public class SpellSelectScreen extends Screen {
     }
 
     private void loadButtonsFromConfig() {
-        List<String> buttonTexts = ModClientConfigs.BUTTON_TEXTS.get();
-        List<String> buttonCommands = ModClientConfigs.BUTTON_COMMANDS.get();
+        List<String> buttonTexts = ModClientConfigs.SPELLS_NAMES.get();
+        List<String> buttonCommands = ModClientConfigs.SPELLS_COMMAND.get();
 
         for (int i = 0; i < buttonTexts.size() && i < buttonCommands.size(); i++) {
             int buttonX = this.leftPos + 10;

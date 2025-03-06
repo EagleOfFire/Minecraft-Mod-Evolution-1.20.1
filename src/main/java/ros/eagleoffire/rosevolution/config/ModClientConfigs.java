@@ -1,20 +1,16 @@
 package ros.eagleoffire.rosevolution.config;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.loading.FMLPaths;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ModClientConfigs {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();

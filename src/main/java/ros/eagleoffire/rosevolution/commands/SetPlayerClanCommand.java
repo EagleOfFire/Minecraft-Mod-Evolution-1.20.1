@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.ChatFormatting;
@@ -40,13 +41,25 @@ public class SetPlayerClanCommand {
                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 .then(Commands.argument("target", StringArgumentType.string())
                         .suggests(this::suggestTargets)
-                .then(Commands.argument("clan", StringArgumentType.string()))
-                        .suggests(this::suggestClan)
-                        .executes(commandContext ->
-                                SetPlayerClan(commandContext.getSource(),
-                                        StringArgumentType.getString(commandContext, "target"),
-                                        StringArgumentType.getString(commandContext, "clan")))
-                ));
+                        .then(Commands.argument("clan", StringArgumentType.word())
+                                .suggests(this::suggestClan)
+                                .executes(context -> {
+                                    String clanName = StringArgumentType.getString(context, "clan");
+                                    if (!isValidClan(clanName)) {
+                                        throw new SimpleCommandExceptionType(
+                                                Component.literal("Invalid clan name: " + clanName)
+                                        ).create();
+                                    }
+                                    return SetPlayerClan(
+                                            context.getSource(),
+                                            StringArgumentType.getString(context, "target"),
+                                            clanName
+                                    );
+                                })
+                        )
+                )
+        );
+
     }
 
     private CompletableFuture<Suggestions> suggestTargets(CommandContext<CommandSourceStack> source, SuggestionsBuilder builder) {
@@ -71,9 +84,19 @@ public class SetPlayerClanCommand {
 
         TargetedPlayer.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
             source.sendSuccess(() -> Component.literal("The Player " + target + " is now part of the clan " + clan)
-                            .withStyle(style -> style.withColor(ChatFormatting.BLUE)), true);
+                    .withStyle(style -> style.withColor(ChatFormatting.BLUE)), true);
+            //TODO set player clan in capabilities
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
         });
         return 1;
+    }
+
+    private boolean isValidClan(String name) {
+        for (Clan clan : Clan.values()) {
+            if (clan.name().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
