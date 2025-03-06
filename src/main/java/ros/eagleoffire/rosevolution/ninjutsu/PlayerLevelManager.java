@@ -17,8 +17,8 @@ public class PlayerLevelManager {
     private static final UUID HEALTH_BONUS_UUID = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 
     public static void checkLevelUps(Player player, PlayerNinjutsu cap) {
-        // Check Chakra level-up
         int requiredChakraXp = getXpForNextLevel(cap.getLevelChakra());
+        System.out.println("Chakra : " + requiredChakraXp);
         if (cap.getExperienceChakra() >= requiredChakraXp) {
             cap.setLevelChakra(cap.getLevelChakra() + 1);
             cap.addExperienceChakra(-requiredChakraXp);
@@ -41,8 +41,11 @@ public class PlayerLevelManager {
     }
 
     public static int getXpForNextLevel(int level) {
-        return (int) (0.8378* Math.pow(1.01,level));
+        return Math.min(level, 190) * 15
+                + Math.max(Math.min(level - 190, 180), 0) * 20
+                + Math.max(level - 370, 0) * 30;
     }
+
 
     private static void applyStatUpgrades(Player player, int level) {
         AttributeInstance healthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
@@ -52,14 +55,14 @@ public class PlayerLevelManager {
             healthAttribute.removeModifier(HEALTH_BONUS_UUID);
 
             // Calculate bonus health (e.g., +2 health per level)
-            double bonusHealth = 10 + ((level - 1) * 1.0);
+            double bonusHealth = 10 + ((level) * 1.0);
 
             // Create and add the new modifier
             AttributeModifier healthModifier = new AttributeModifier(
-                HEALTH_BONUS_UUID,
-                "Level-Up Bonus Health",
-                bonusHealth,
-                AttributeModifier.Operation.ADDITION
+                    HEALTH_BONUS_UUID,
+                    "Level-Up Bonus Health",
+                    bonusHealth,
+                    AttributeModifier.Operation.ADDITION
             );
 
             healthAttribute.addPermanentModifier(healthModifier);

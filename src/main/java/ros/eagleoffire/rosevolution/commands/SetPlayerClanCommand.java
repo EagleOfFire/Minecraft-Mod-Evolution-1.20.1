@@ -55,10 +55,7 @@ public class SetPlayerClanCommand {
                                             StringArgumentType.getString(context, "target"),
                                             clanName
                                     );
-                                })
-                        )
-                )
-        );
+                                }))));
 
     }
 
@@ -83,9 +80,9 @@ public class SetPlayerClanCommand {
         ServerPlayer TargetedPlayer = Objects.requireNonNull(OnlinePlayer.getPlayerByName(target));
 
         TargetedPlayer.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
-            source.sendSuccess(() -> Component.literal("The Player " + target + " is now part of the clan " + clan)
-                    .withStyle(style -> style.withColor(ChatFormatting.BLUE)), true);
-            //TODO set player clan in capabilities
+            ninjutsu.setClan(clan);
+            source.sendSuccess(() -> Component.literal("The Player " + target + " is now part of the clan " + ninjutsu.getClan())
+                    .withStyle(style -> style.withColor(ChatFormatting.GREEN)), true);
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
         });
         return 1;

@@ -20,10 +20,10 @@ import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsuProvider;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class GetNinjutsuLevelCommand {
+public class GetNinjutsuInfoCommand {
 
-    public GetNinjutsuLevelCommand(CommandDispatcher<CommandSourceStack> Dispatcher) {
-        Dispatcher.register(Commands.literal("ninjutsu_stats")
+    public GetNinjutsuInfoCommand(CommandDispatcher<CommandSourceStack> Dispatcher) {
+        Dispatcher.register(Commands.literal("ninjutsu_info")
                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 .then(Commands.argument("target", StringArgumentType.string())
                         .suggests(this::suggestTargets)
@@ -58,7 +58,10 @@ public class GetNinjutsuLevelCommand {
                         .append(Component.literal("- Total Level Health: " + ninjutsu.getLevelHealth() + "\n")
                                 .withStyle(style -> style.withColor(ChatFormatting.RED)))
                         .append(Component.literal("- Total Max Health: " + TargetedPlayer.getMaxHealth() + "\n")
-                                .withStyle(style -> style.withColor(ChatFormatting.RED)));
+                                .withStyle(style -> style.withColor(ChatFormatting.RED)))
+                        .append(Component.literal("- Clan: " + ninjutsu.getClan() + "\n")
+                                .withStyle(style -> style.withColor(ChatFormatting.GREEN)));
+
             }, true);
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
         });

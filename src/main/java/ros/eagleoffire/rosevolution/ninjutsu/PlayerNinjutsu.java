@@ -7,6 +7,7 @@ public class PlayerNinjutsu {
     private int levelChakra;
     private int experienceHealth;
     private int levelHealth;
+    private String clan;
 
     // Tracking daily experience caps
     private int dailyExperienceChakraGained;
@@ -78,6 +79,12 @@ public class PlayerNinjutsu {
     public int getExperienceHealth(){return experienceHealth;}
     public int getLevelHealth(){return levelHealth;}
     public void setLevelHealth(int lvl){this.levelHealth = lvl;}
+    public String getClan(){return clan;}
+    public void setClan(String clan){this.clan = clan;}
+
+    public int getDailyExperienceChakraGained() {return dailyExperienceChakraGained;}
+    public int getDailyExperienceHealthGained() {return dailyExperienceHealthGained;}
+    public long getLastResetTimestamp() {return lastResetTimestamp;}
 
     public void copyFrom(PlayerNinjutsu source){
         this.experienceChakra = source.experienceChakra;
@@ -87,6 +94,7 @@ public class PlayerNinjutsu {
         this.dailyExperienceChakraGained = source.dailyExperienceChakraGained;
         this.dailyExperienceHealthGained = source.dailyExperienceHealthGained;
         this.lastResetTimestamp = source.lastResetTimestamp;
+        this.clan = source.clan;
     }
 
     public void saveNBTData(CompoundTag nbt){
@@ -97,6 +105,7 @@ public class PlayerNinjutsu {
         nbt.putInt("dailyExperienceChakraGained", dailyExperienceChakraGained);
         nbt.putInt("dailyExperienceHealthGained", dailyExperienceHealthGained);
         nbt.putLong("lastResetTimestamp", lastResetTimestamp);
+        nbt.putString("clan", clan);
     }
 
     public void loadNBTData(CompoundTag nbt){
@@ -107,5 +116,17 @@ public class PlayerNinjutsu {
         dailyExperienceChakraGained = nbt.getInt("dailyExperienceChakraGained");
         dailyExperienceHealthGained = nbt.getInt("dailyExperienceChakraGained");
         lastResetTimestamp = nbt.getLong("lastResetTimestamp");
+        clan = nbt.getString("clan");
+    }
+
+    public void reset() {
+        experienceChakra = 0;
+        levelChakra = 0;
+        experienceHealth = 0;
+        levelHealth = 0;
+        dailyExperienceChakraGained = 0;
+        dailyExperienceHealthGained = 0;
+        lastResetTimestamp = System.currentTimeMillis();
+        clan = "";
     }
 }
