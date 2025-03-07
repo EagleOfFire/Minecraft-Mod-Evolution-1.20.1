@@ -1,13 +1,15 @@
 package ros.eagleoffire.rosevolution.ninjutsu;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class PlayerNinjutsu {
     private int experienceChakra;
     private int levelChakra;
     private int experienceHealth;
     private int levelHealth;
-    private String clan;
+    private String clan = "";
 
     // Tracking daily experience caps
     private int dailyExperienceChakraGained;
@@ -17,9 +19,9 @@ public class PlayerNinjutsu {
     private static final long MILLISECONDS_IN_A_DAY = 86_400_000;
 
     // helper method to reset dauly experience if needed
-    private void resetDailyExperienceIfNeeded(){
+    private void resetDailyExperienceIfNeeded() {
         long currentTime = System.currentTimeMillis();
-        if(currentTime - lastResetTimestamp >= MILLISECONDS_IN_A_DAY) {
+        if (currentTime - lastResetTimestamp >= MILLISECONDS_IN_A_DAY) {
             dailyExperienceChakraGained = 0;
             dailyExperienceHealthGained = 0;
             lastResetTimestamp = currentTime;
@@ -27,9 +29,9 @@ public class PlayerNinjutsu {
     }
 
     // Calculate XP limit forthegiven level
-    private int getDailyXpLimit(int level){
+    private int getDailyXpLimit(int level) {
         if (level <= 190) {
-            return 2* PlayerLevelManager.getXpForNextLevel(level);
+            return 2 * PlayerLevelManager.getXpForNextLevel(level);
         } else if (level <= 416) {
             return (int) (1.5 * PlayerLevelManager.getXpForNextLevel(level));
         } else {
@@ -37,56 +39,23 @@ public class PlayerNinjutsu {
         }
     }
 
-    public void addExperienceChakra(int add){
-        resetDailyExperienceIfNeeded();
+    public void addExperienceChakra(int add){this.experienceChakra += add;}
+    public void addExperienceHealth(int add){this.experienceHealth += add;}
 
-        int dailyLimit = getDailyXpLimit(levelChakra);
-        int remainingLimit = dailyLimit - dailyExperienceChakraGained;
-
-        if (remainingLimit > 0 ) {
-            int actualAdd = Math.min(add, remainingLimit);
-            this.experienceChakra += actualAdd;
-            dailyExperienceChakraGained += actualAdd;
-
-            // handle level up if enough experience is gained
-            while (experienceChakra >= PlayerLevelManager.getXpForNextLevel(levelChakra)){
-                experienceChakra -= PlayerLevelManager.getXpForNextLevel(levelChakra);
-                levelChakra++;
-            }
-        }
-    }
-
-    public void addExperienceHealth(int add){
-        resetDailyExperienceIfNeeded();
-
-        int dailyLimit = getDailyXpLimit(levelHealth);
-        int remainingLimit = dailyLimit - dailyExperienceHealthGained;
-
-        if (remainingLimit > 0){
-            int actualAdd = Math.min(add, remainingLimit);
-            this.experienceHealth += actualAdd;
-
-            while (experienceHealth >= PlayerLevelManager.getXpForNextLevel(levelHealth)){
-                experienceHealth -= PlayerLevelManager.getXpForNextLevel(levelHealth);
-                levelHealth++;
-            }
-        }
-    }
-
-    public int getExperienceChakra(){return experienceChakra;}
-    public int getLevelChakra(){return levelChakra;}
-    public void setLevelChakra(int lvl){this.levelChakra = lvl;}
-    public int getExperienceHealth(){return experienceHealth;}
-    public int getLevelHealth(){return levelHealth;}
-    public void setLevelHealth(int lvl){this.levelHealth = lvl;}
-    public String getClan(){return clan;}
-    public void setClan(String clan){this.clan = clan;}
-
+    public int getExperienceChakra() {return experienceChakra;}
+    public int getLevelChakra() {return levelChakra;}
+    public int getExperienceHealth() {return experienceHealth;}
+    public int getLevelHealth() {return levelHealth;}
+    public String getClan() {return clan;}
     public int getDailyExperienceChakraGained() {return dailyExperienceChakraGained;}
     public int getDailyExperienceHealthGained() {return dailyExperienceHealthGained;}
     public long getLastResetTimestamp() {return lastResetTimestamp;}
 
-    public void copyFrom(PlayerNinjutsu source){
+    public void setLevelChakra(int lvl) {this.levelChakra = lvl;}
+    public void setLevelHealth(int lvl) {this.levelHealth = lvl;}
+    public void setClan(String clan) {this.clan = clan;}
+
+    public void copyFrom(PlayerNinjutsu source) {
         this.experienceChakra = source.experienceChakra;
         this.levelChakra = source.levelChakra;
         this.experienceHealth = source.experienceHealth;
@@ -97,7 +66,7 @@ public class PlayerNinjutsu {
         this.clan = source.clan;
     }
 
-    public void saveNBTData(CompoundTag nbt){
+    public void saveNBTData(CompoundTag nbt) {
         nbt.putInt("experienceChakra", experienceChakra);
         nbt.putInt("levelChakra", levelChakra);
         nbt.putInt("experienceHealth", experienceHealth);
@@ -106,9 +75,10 @@ public class PlayerNinjutsu {
         nbt.putInt("dailyExperienceHealthGained", dailyExperienceHealthGained);
         nbt.putLong("lastResetTimestamp", lastResetTimestamp);
         nbt.putString("clan", clan);
+        System.out.println("Saved PlayerNinjutsu to NBT: " + nbt);
     }
 
-    public void loadNBTData(CompoundTag nbt){
+    public void loadNBTData(CompoundTag nbt) {
         experienceChakra = nbt.getInt("experienceChakra");
         levelChakra = nbt.getInt("levelChakra");
         experienceHealth = nbt.getInt("experienceHealth");
@@ -117,13 +87,12 @@ public class PlayerNinjutsu {
         dailyExperienceHealthGained = nbt.getInt("dailyExperienceChakraGained");
         lastResetTimestamp = nbt.getLong("lastResetTimestamp");
         clan = nbt.getString("clan");
+        System.out.println("Loaded PlayerNinjutsu from NBT: " + nbt);
     }
 
     public void reset() {
         experienceChakra = 0;
-        levelChakra = 0;
         experienceHealth = 0;
-        levelHealth = 0;
         dailyExperienceChakraGained = 0;
         dailyExperienceHealthGained = 0;
         lastResetTimestamp = System.currentTimeMillis();

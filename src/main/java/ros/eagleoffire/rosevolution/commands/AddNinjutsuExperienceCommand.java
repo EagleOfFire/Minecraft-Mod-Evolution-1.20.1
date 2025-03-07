@@ -71,10 +71,12 @@ public class AddNinjutsuExperienceCommand {
                         case Chakra:
                             ninjutsu.addExperienceChakra(qts);
                             PlayerLevelManager.checkLevelUps(TargetedPlayer,ninjutsu);
+                            ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
                             return Component.literal("Successfully added " + qts + " XP to Chakra for player " + target);
                         case Health:
                             ninjutsu.addExperienceHealth(qts);
                             PlayerLevelManager.checkLevelUps(TargetedPlayer,ninjutsu);
+                            ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
                             return Component.literal("Successfully added " + qts + " XP to Health for player " + target);
                     }
                 } catch (IllegalArgumentException e) {
@@ -82,7 +84,6 @@ public class AddNinjutsuExperienceCommand {
                 }
                 return Component.literal("An error occurred.");
             }, true);
-            ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
         });
         return 1;
     }

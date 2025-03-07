@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import ros.eagleoffire.rosevolution.config.ModClientConfigs;
 import ros.eagleoffire.rosevolution.config.ModCommonConfigs;
+import ros.eagleoffire.rosevolution.events.ModEvents;
 import ros.eagleoffire.rosevolution.network.ModMessages;
 import ros.eagleoffire.rosevolution.quest.ActivityQuestTracker;
 import ros.eagleoffire.rosevolution.sound.ModSounds;

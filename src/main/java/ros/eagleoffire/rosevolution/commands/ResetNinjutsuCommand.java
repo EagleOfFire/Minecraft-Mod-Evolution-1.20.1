@@ -75,6 +75,7 @@ public class ResetNinjutsuCommand {
             ninjutsu.reset();
             PlayerLevelManager.checkLevelUps(TargetedPlayer, ninjutsu);
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), TargetedPlayer);
+            TargetedPlayer.kill();
             source.sendSuccess(() -> Component.literal("The Player " + target + " was successfully reset by " + source.getEntity().getDisplayName().getString())
                     .withStyle(ChatFormatting.RED), true);
         });
