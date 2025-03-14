@@ -10,6 +10,7 @@ public class PlayerNinjutsu {
     private int experienceHealth;
     private int levelHealth;
     private String clan = "";
+    private int tokenAmount = 0;
 
     // Tracking daily experience caps
     private int dailyExperienceChakraGained;
@@ -41,6 +42,13 @@ public class PlayerNinjutsu {
 
     public void addExperienceChakra(int add){this.experienceChakra += add;}
     public void addExperienceHealth(int add){this.experienceHealth += add;}
+    public void TokenAmount(String operation, int add){
+        if(operation.equals("add")) {
+            this.tokenAmount += add;
+        } else if(operation.equals("subtract")) {
+            this.tokenAmount -= add;
+        }
+    }
 
     public int getExperienceChakra() {return experienceChakra;}
     public int getLevelChakra() {return levelChakra;}
@@ -50,6 +58,7 @@ public class PlayerNinjutsu {
     public int getDailyExperienceChakraGained() {return dailyExperienceChakraGained;}
     public int getDailyExperienceHealthGained() {return dailyExperienceHealthGained;}
     public long getLastResetTimestamp() {return lastResetTimestamp;}
+    public int getTokenAmount() {return tokenAmount;}
 
     public void setLevelChakra(int lvl) {this.levelChakra = lvl;}
     public void setLevelHealth(int lvl) {this.levelHealth = lvl;}
@@ -64,6 +73,7 @@ public class PlayerNinjutsu {
         this.dailyExperienceHealthGained = source.dailyExperienceHealthGained;
         this.lastResetTimestamp = source.lastResetTimestamp;
         this.clan = source.clan;
+        this.tokenAmount = source.tokenAmount;
     }
 
     public void saveNBTData(CompoundTag nbt) {
@@ -75,7 +85,7 @@ public class PlayerNinjutsu {
         nbt.putInt("dailyExperienceHealthGained", dailyExperienceHealthGained);
         nbt.putLong("lastResetTimestamp", lastResetTimestamp);
         nbt.putString("clan", clan);
-        System.out.println("Saved PlayerNinjutsu to NBT: " + nbt);
+        nbt.putInt("tokenAmount", tokenAmount);
     }
 
     public void loadNBTData(CompoundTag nbt) {
@@ -87,7 +97,7 @@ public class PlayerNinjutsu {
         dailyExperienceHealthGained = nbt.getInt("dailyExperienceChakraGained");
         lastResetTimestamp = nbt.getLong("lastResetTimestamp");
         clan = nbt.getString("clan");
-        System.out.println("Loaded PlayerNinjutsu from NBT: " + nbt);
+        tokenAmount = nbt.getInt("tokenAmount");
     }
 
     public void reset() {
@@ -97,5 +107,6 @@ public class PlayerNinjutsu {
         dailyExperienceHealthGained = 0;
         lastResetTimestamp = System.currentTimeMillis();
         clan = "";
+        tokenAmount = 0;
     }
 }

@@ -10,7 +10,6 @@ import ros.eagleoffire.rosevolution.ROSEvolution;
 import ros.eagleoffire.rosevolution.client.ClientHooks;
 import ros.eagleoffire.rosevolution.client.Keybindings;
 import net.minecraft.network.chat.Component;
-import ros.eagleoffire.rosevolution.screen.SpellSelectScreen;
 
 @Mod.EventBusSubscriber(modid = ROSEvolution.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
 public class ClientForgeHandler {

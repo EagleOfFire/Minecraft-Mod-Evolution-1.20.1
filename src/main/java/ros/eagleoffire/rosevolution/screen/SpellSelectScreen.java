@@ -14,7 +14,10 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import ros.eagleoffire.rosevolution.ROSEvolution;
+import ros.eagleoffire.rosevolution.client.ClientHooks;
 import ros.eagleoffire.rosevolution.config.ModClientConfigs;
 
 import java.util.ArrayList;
@@ -55,9 +58,6 @@ public class SpellSelectScreen extends Screen {
         if (cachedTexture != null) {
             cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
             Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
-            System.out.println("✅ Successfully registered texture: " + cachedTextureLocation);
-        } else {
-            System.out.println("❌ Failed to load texture: " + textureName);
         }
         loadButtonsFromConfig();
 
@@ -85,11 +85,10 @@ public class SpellSelectScreen extends Screen {
                             if (this.minecraft != null && this.minecraft.player != null) {
                                 String playerName = this.minecraft.player.getGameProfile().getName();
                                 String processedCommand = command.replace("@s", playerName);
-                                executeCommand(processedCommand);
+                                //executeCommand(processedCommand);
+                                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openKatonJutsuScreen(minecraft.player));
                             }
                         }));
-            } else {
-                System.out.println("Can't draw image, texture is null");
             }
         }
     }

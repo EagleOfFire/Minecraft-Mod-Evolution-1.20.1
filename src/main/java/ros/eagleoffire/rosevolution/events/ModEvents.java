@@ -54,7 +54,6 @@ public class ModEvents {
                 event.getOriginal().getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(oldStore -> {
                     event.getEntity().getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(newStore -> {
                         newStore.copyFrom(oldStore);
-                        System.out.println("Cloned player data");
                         PlayerLevelManager.applyStatUpgrades(event.getEntity(), newStore);
                         event.getEntity().heal(999);
                     });
@@ -64,19 +63,12 @@ public class ModEvents {
         }
 
         @SubscribeEvent
-        public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-            if (event.side == LogicalSide.SERVER) {
-                event.player.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
-                });
-            }
-        }
-
-        @SubscribeEvent
         public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
             if(!event.getLevel().isClientSide()) {
                 if(event.getEntity() instanceof ServerPlayer player) {
                     player.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
                         ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(ninjutsu), player);
+                        PlayerLevelManager.applyStatUpgrades(player, ninjutsu);
                     });
                 }
             }

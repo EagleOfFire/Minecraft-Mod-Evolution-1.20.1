@@ -51,7 +51,6 @@ public class PlayerLevelManager {
 
     public static void applyStatUpgrades(Player player, PlayerNinjutsu cap) {
         AttributeInstance healthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
-        System.out.println("Applied stat upgrades");
         if (healthAttribute != null) {
             healthAttribute.removeModifier(HEALTH_BONUS_UUID);
             double bonusHealth = 10 + ((cap.getLevelHealth() - 1) * 1.0);

@@ -13,6 +13,7 @@ public class NinjutsuDataSyncS2CPacket {
     private final int experienceHealth;
     private final int levelHealth;
     private final String clan;
+    private final int tokenAmount;
 
     // Tracking daily experience caps
     private final int dailyExperienceChakraGained;
@@ -26,6 +27,7 @@ public class NinjutsuDataSyncS2CPacket {
         this.experienceHealth = source.getExperienceHealth();
         this.levelHealth = source.getLevelHealth();
         this.clan = source.getClan();
+        this.tokenAmount = source.getTokenAmount();
         this.dailyExperienceChakraGained = source.getDailyExperienceChakraGained();
         this.dailyExperienceHealthGained = source.getDailyExperienceHealthGained();
         this.lastResetTimestamp = source.getLastResetTimestamp();
@@ -37,6 +39,7 @@ public class NinjutsuDataSyncS2CPacket {
         this.experienceHealth = buf.readInt();
         this.levelHealth = buf.readInt();
         this.clan = buf.readUtf();
+        this.tokenAmount = buf.readInt();
         this.dailyExperienceChakraGained = buf.readInt();
         this.dailyExperienceHealthGained = buf.readInt();
         this.lastResetTimestamp = buf.readLong();
@@ -48,6 +51,7 @@ public class NinjutsuDataSyncS2CPacket {
         buf.writeInt(this.experienceHealth);
         buf.writeInt(this.levelHealth);
         buf.writeUtf(this.clan);
+        buf.writeInt(this.tokenAmount);
         buf.writeInt(this.dailyExperienceChakraGained);
         buf.writeInt(this.dailyExperienceHealthGained);
         buf.writeLong(this.lastResetTimestamp);
@@ -56,7 +60,7 @@ public class NinjutsuDataSyncS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientNinjutsuData.set(experienceChakra,levelChakra,experienceHealth,levelHealth,clan,dailyExperienceChakraGained,dailyExperienceHealthGained,lastResetTimestamp);
+            ClientNinjutsuData.set(experienceChakra,levelChakra,experienceHealth,levelHealth,clan,tokenAmount,dailyExperienceChakraGained,dailyExperienceHealthGained,lastResetTimestamp);
         });
         return true;
     }
