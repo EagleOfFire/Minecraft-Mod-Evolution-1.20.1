@@ -21,7 +21,7 @@ public class ClientForgeHandler {
         Minecraft minecraft = Minecraft.getInstance();
         if (Keybindings.INSTANCE.OpenSpellScreen.consumeClick() && minecraft.player != null) {
             minecraft.player.displayClientMessage(OPEN_SPELL_SCREEN, true);
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen(minecraft.player));
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpecialisationScreen(minecraft.player));
         }
     }
 }
