@@ -101,7 +101,7 @@ public class KatonJutsuScreen extends Screen {
 private void handleExampleButton(Button button) {
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
         if (minecraft != null && minecraft.player != null) {
-            ClientHooks.openTestScreen(minecraft.player);
+            //ClientHooks.openTestScreen(minecraft.player);
         }
     });
 }

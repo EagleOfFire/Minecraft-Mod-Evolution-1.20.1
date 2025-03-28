@@ -17,7 +17,7 @@ public class LevelUpScreen extends Screen {
     private static final Component TITLE =
             Component.translatable("gui." + ROSEvolution.MODID + ".example_block_screen");
 
-    private static final ResourceLocation LEVEL_UP_GIF = new ResourceLocation(ROSEvolution.MODID, "textures/gui/level_up.png");
+    private static final ResourceLocation LEVEL_UP_GIF = new ResourceLocation(ROSEvolution.MODID, "textures/gui/evosys_levelup.png");
 
     private final int imageWidth, imageHeight;
     private final Object Context;
