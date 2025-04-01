@@ -1,4 +1,4 @@
-package ros.eagleoffire.rosevolution.screen.specialisationScreen.elementScreen;
+package ros.eagleoffire.rosevolution.screen.specialisationScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,7 +21,7 @@ import ros.eagleoffire.rosevolution.screen.specialisationScreen.TexturesScreen;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class SuitonScreens {
+public class ClanSpecialisationScreens {
     private static final int leftPos = 0;
     private static final int topPos = 0;
 
@@ -43,7 +43,7 @@ public class SuitonScreens {
     private static Button buttonLeft;
     private static Button buttonBack;
     private static ImageButton imageButtonBack;
-    private static String element = "Suiton";
+    private static String element = "ClanSpecialisation";
 
     private static ResourceLocation cachedTextureLocation;
 
@@ -151,18 +151,18 @@ public class SuitonScreens {
         }
     }
 
-    public static class SuitonRangSScreen extends Screen {
+    public static class ClanSpecialisationRangSScreen extends Screen {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public SuitonRangSScreen(LocalPlayer player) {
+        public ClanSpecialisationRangSScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
-            SuitonScreens.init(this.width, this.height, this.minecraft);
+            ClanSpecialisationScreens.init(this.width, this.height, this.minecraft);
 
             buttonLeft = addRenderableWidget(new ImageButton(
                     leftButtonLeftPos, leftButtonTopPos, // X and Y position
@@ -173,7 +173,7 @@ public class SuitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
                         }
                     }));
 
@@ -183,7 +183,7 @@ public class SuitonScreens {
         @Override
         public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
             renderBackground(graphics);
-            graphics.blit(TexturesScreen.RANG_S_SCREEN, SuitonScreens.leftPos, SuitonScreens.topPos, 0, 0, this.width, this.height, this.width, this.height);
+            graphics.blit(TexturesScreen.RANG_S_SCREEN, leftPos, topPos, 0, 0, this.width, this.height, this.width, this.height);
 
             buttonLeftHover(graphics);
             butonBackHover(graphics);
@@ -196,18 +196,18 @@ public class SuitonScreens {
         }
     }
 
-    public static class SuitonRangAScreen extends Screen {
+    public static class ClanSpecialisationRangAScreen extends Screen {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public SuitonRangAScreen(LocalPlayer player) {
+        public ClanSpecialisationRangAScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
-            SuitonScreens.init(this.width, this.height, this.minecraft);
+            ClanSpecialisationScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
                     rightButtonLeftPos, rightButtonTopPos, // X and Y position
@@ -218,7 +218,7 @@ public class SuitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "S"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "S"));
                         }
                     }));
 
@@ -231,7 +231,7 @@ public class SuitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
                         }
                     }));
 
@@ -254,18 +254,18 @@ public class SuitonScreens {
         }
     }
 
-    public static class SuitonRangBScreen extends Screen {
+    public static class ClanSpecialisationRangBScreen extends Screen {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public SuitonRangBScreen(LocalPlayer player) {
+        public ClanSpecialisationRangBScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
-            SuitonScreens.init(this.width, this.height, this.minecraft);
+            ClanSpecialisationScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
                     rightButtonLeftPos, rightButtonTopPos, // X and Y position
@@ -276,7 +276,7 @@ public class SuitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
                         }
                     }));
 
@@ -289,10 +289,10 @@ public class SuitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
                         }
                     }));
-            
+
             buttonBack = addRenderableWidget(imageButtonBack);
         }
 
@@ -314,18 +314,18 @@ public class SuitonScreens {
         }
     }
 
-    public static class SuitonRangCScreen extends Screen {
+    public static class ClanSpecialisationRangCScreen extends Screen {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public SuitonRangCScreen(LocalPlayer player) {
+        public ClanSpecialisationRangCScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
-            SuitonScreens.init(this.width, this.height, this.minecraft);
+            ClanSpecialisationScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
                     rightButtonLeftPos, rightButtonTopPos, // X and Y position
@@ -336,7 +336,7 @@ public class SuitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
                         }
                     }));
 
@@ -349,7 +349,7 @@ public class SuitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "D"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "D"));
                         }
                     }));
 
@@ -372,18 +372,18 @@ public class SuitonScreens {
         }
     }
 
-    public static class SuitonRangDScreen extends Screen {
+    public static class ClanSpecialisationRangDScreen extends Screen {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public SuitonRangDScreen(LocalPlayer player) {
+        public ClanSpecialisationRangDScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
-            SuitonScreens.init(this.width, this.height, this.minecraft);
+            ClanSpecialisationScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
                     rightButtonLeftPos, rightButtonTopPos, // X and Y position
@@ -394,11 +394,10 @@ public class SuitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
                         }
                     }));
-            
-            
+
             buttonBack = addRenderableWidget(imageButtonBack);
 
             List<String> buttonTexts = ModClientConfigs.SPELLS_NAMES.get();

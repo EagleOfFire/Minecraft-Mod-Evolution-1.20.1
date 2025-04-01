@@ -2,49 +2,58 @@ package ros.eagleoffire.rosevolution.screen.specialisationScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import ros.eagleoffire.rosevolution.ROSEvolution;
 import ros.eagleoffire.rosevolution.client.ClientHooks;
+
+import static ros.eagleoffire.rosevolution.screen.specialisationScreen.TexturesScreen.*;
 
 public class ElementSelectScreen extends Screen {
 
      private static final Component TITLE =
             Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-    private static final ResourceLocation ELEMENT_BACKGROUND =
-        new ResourceLocation(ROSEvolution.MODID, "textures/gui/screen/ninjutsu_choix_element/evosys_background_elements.png");
-    private static final ResourceLocation ELEMENT_KATON =
-        new ResourceLocation(ROSEvolution.MODID, "textures/gui/screen/ninjutsu_choix_element/evosys_elements_katon_selected.png");
-    private static final ResourceLocation ELEMENT_SUITON =
-        new ResourceLocation(ROSEvolution.MODID, "textures/gui/screen/ninjutsu_choix_element/evosys_elements_suiton_selected.png");
-    private static final ResourceLocation ELEMENT_FUTON =
-        new ResourceLocation(ROSEvolution.MODID, "textures/gui/screen/ninjutsu_choix_element/evosys_elements_futon_selected.png");
-    private static final ResourceLocation ELEMENT_DOTON =
-        new ResourceLocation(ROSEvolution.MODID, "textures/gui/screen/ninjutsu_choix_element/evosys_elements_doton_selected.png");
-    private static final ResourceLocation ELEMENT_RAITON =
-        new ResourceLocation(ROSEvolution.MODID, "textures/gui/screen/ninjutsu_choix_element/evosys_elements_raiton_selected.png");
-
-    private final int imageWidth;
-    private final int imageHeight;
+    private static int backButtonLeftPos;
+    private static int backButtonTopPos;
+    private static int backButtonHeight;
+    private static int backButtonWidth;
     private int leftPos;
     private int topPos;
     private LocalPlayer player;
+    private static Button buttonBack;
 
     public ElementSelectScreen(LocalPlayer player) {
         super(TITLE);
-        this.imageWidth = 1272;
-        this.imageHeight = 701;
         this.player = player;
     }
 
     @Override
     protected void init() {
         super.init();
+               backButtonWidth = 40;
+        backButtonHeight = (int) (0.625 * backButtonWidth);
+        backButtonLeftPos = backButtonWidth / 2;
+        backButtonTopPos = height - backButtonHeight - (backButtonWidth / 2);
+
+        buttonBack = addRenderableWidget(new ImageButton(
+                backButtonLeftPos, backButtonTopPos, // X and Y position
+                backButtonWidth, backButtonHeight, // Width and Height
+                0, 0, // Texture X and Y (start of image)
+                0, // Amount to shift Y on click
+                TexturesScreen.BACK_ARROW, // Texture location
+                backButtonWidth, backButtonHeight, // Total texture size (width, height of full image)
+                (button) -> {
+                    if (minecraft != null && minecraft.player != null) {
+                        Minecraft.getInstance().setScreen(null);
+                        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpecialisationScreen(player));
+                    }
+                }));
     }
 
     @Override
@@ -65,6 +74,18 @@ public class ElementSelectScreen extends Screen {
         } else {
             graphics.blit(ELEMENT_BACKGROUND, this.leftPos, this.topPos, 0, 0, this.width, this.height,this.width,this.height);
         }
+
+        if (buttonBack.isHoveredOrFocused()) {
+            graphics.pose().pushPose(); // Save previous render state
+            graphics.pose().translate(0, 0, 500); // Move it to the top layer
+            graphics.blit(TexturesScreen.BACK_ARROW_HOVER,
+                    backButtonLeftPos, backButtonTopPos,
+                    0, 0,
+                    backButtonWidth, backButtonHeight,
+                    backButtonWidth, backButtonHeight);
+            graphics.pose().popPose(); // Restore previous state
+        }
+
         super.render(graphics, mouseX, mouseY, partialTicks);
     }
 

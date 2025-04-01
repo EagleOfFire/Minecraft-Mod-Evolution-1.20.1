@@ -8,6 +8,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class ModClientConfigs {
     public static final ForgeConfigSpec SPEC;
 
     public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_NAMES;
-    private static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_ICON_RAW; // Store as raw strings
+    public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_ICON_RAW;
     public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_COMMAND;
     public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_RANKS;
     public static final ForgeConfigSpec.ConfigValue<List<String>> SPELLS_CATEGORIES;
@@ -25,20 +26,22 @@ public class ModClientConfigs {
     static {
         BUILDER.push("Configs for ROS Evolution Mod");
 
+        //SPELLS_NAMES = BUILDER.comment("Libellés des boutons dans le menu dynamique.")
+        //        .define("Textes des boutons", List.of("Bouton 1", "Bouton 2"));
         SPELLS_NAMES = BUILDER.comment("Libellés des boutons dans le menu dynamique.")
-                .define("Textes des boutons", List.of("Bouton 1", "Bouton 2"));
+                .define("Textes des boutons", new ArrayList<String>());
 
         SPELLS_ICON_RAW = BUILDER.comment("Chemins des images pour les boutons du menu dynamique.")
-                .define("Images des boutons", List.of("button.png", "button.png"));
+                .define("Images des boutons", new ArrayList<String>());
 
         SPELLS_COMMAND = BUILDER.comment("Commandes exécutées par chaque bouton lorsqu'il est cliqué.")
-                .define("Commandes des boutons", List.of("gamemode survival @s", "gamemode creative @s"));
+                .define("Commandes des boutons", new ArrayList<String>());
 
         SPELLS_RANKS = BUILDER.comment("Niveaux ou rangs associés aux boutons du menu dynamique.")
-                .define("Rang du spell", List.of("A", "B"));
+                .define("Rang du spell", new ArrayList<String>());
 
         SPELLS_CATEGORIES = BUILDER.comment("Catégories associées aux spell du menu dynamique.")
-                .define("Catégories du spell", List.of("Element", "Genjutsu"));
+                .define("Catégories du spell", new ArrayList<String>());
 
         BUILDER.pop();
         SPEC = BUILDER.build();

@@ -23,102 +23,102 @@ public class ClientHooks {
         Minecraft.getInstance().setScreen(new ElementSelectScreen(player));
     }
 
-    public static void openMedicalScreen(LocalPlayer player, String rank){
+    public static void openMedicalScreen(String rank){
         switch (rank) {
             case "D":
-                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangDScreen(player));
+                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangDScreen());
                 break;
             case "C":
-                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangCScreen(player));
+                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangCScreen());
                 break;
             case "B":
-                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangBScreen(player));
+                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangBScreen());
                 break;
             case "A":
-                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangAScreen(player));
+                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangAScreen());
                 break;
             case "S":
-                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangSScreen(player));
+                Minecraft.getInstance().setScreen(new MedicalScreens.MedicalRangSScreen());
                 break;
         }
     }
 
-    public static void openGenjutsuScreen(LocalPlayer player, String rank){
+    public static void openGenjutsuScreen(String rank){
         switch (rank) {
             case "D":
-                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangDScreen(player));
+                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangDScreen());
                 break;
             case "C":
-                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangCScreen(player));
+                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangCScreen());
                 break;
             case "B":
-                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangBScreen(player));
+                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangBScreen());
                 break;
             case "A":
-                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangAScreen(player));
+                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangAScreen());
                 break;
             case "S":
-                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangSScreen(player));
+                Minecraft.getInstance().setScreen(new GenjutsuScreens.GenjutsuRangSScreen());
                 break;
         }
     }
 
-    public static void openKenjutsuScreen(LocalPlayer player, String rank){
+    public static void openKenjutsuScreen(String rank){
         switch (rank) {
             case "D":
-                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangDScreen(player));
+                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangDScreen());
                 break;
             case "C":
-                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangCScreen(player));
+                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangCScreen());
                 break;
             case "B":
-                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangBScreen(player));
+                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangBScreen());
                 break;
             case "A":
-                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangAScreen(player));
+                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangAScreen());
                 break;
             case "S":
-                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangSScreen(player));
+                Minecraft.getInstance().setScreen(new KenjutsuScreens.KenjutsuRangSScreen());
                 break;
         }
     }
 
-    public static void openTaijutsuScreen(LocalPlayer player, String rank){
+    public static void openTaijutsuScreen(String rank){
         switch (rank) {
             case "D":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangDScreen(player));
+                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangDScreen());
                 break;
             case "C":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangCScreen(player));
+                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangCScreen());
                 break;
             case "B":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangBScreen(player));
+                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangBScreen());
                 break;
             case "A":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangAScreen(player));
+                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangAScreen());
                 break;
             case "S":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangSScreen(player));
+                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangSScreen());
                 break;
         }
     }
 
-    public static void openClanSpecialisationScreen(LocalPlayer player, String rank){
+    public static void openClanSpecialisationScreen(String rank){
         switch (rank) {
             case "D":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangDScreen(player));
+                Minecraft.getInstance().setScreen(new ClanSpecialisationScreens.ClanSpecialisationRangDScreen());
                 break;
             case "C":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangCScreen(player));
+                Minecraft.getInstance().setScreen(new ClanSpecialisationScreens.ClanSpecialisationRangCScreen());
                 break;
             case "B":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangBScreen(player));
+                Minecraft.getInstance().setScreen(new ClanSpecialisationScreens.ClanSpecialisationRangBScreen());
                 break;
             case "A":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangAScreen(player));
+                Minecraft.getInstance().setScreen(new ClanSpecialisationScreens.ClanSpecialisationRangAScreen());
                 break;
             case "S":
-                Minecraft.getInstance().setScreen(new TaijutsuScreens.TaijutsuRangSScreen(player));
+                Minecraft.getInstance().setScreen(new ClanSpecialisationScreens.ClanSpecialisationRangSScreen());
                 break;
         }
     }
@@ -166,19 +166,19 @@ public class ClientHooks {
             case "Katon":
                 switch (rank) {
                     case "D":
-                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangDScreen(player));
+                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangDScreen());
                         break;
                     case "C":
-                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangCScreen(player));
+                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangCScreen());
                         break;
                     case "B":
-                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangBScreen(player));
+                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangBScreen());
                         break;
                     case "A":
-                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangAScreen(player));
+                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangAScreen());
                         break;
                     case "S":
-                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangSScreen(player));
+                        Minecraft.getInstance().setScreen(new KatonScreens.KatonRangSScreen());
                         break;
                 }
                 break;
