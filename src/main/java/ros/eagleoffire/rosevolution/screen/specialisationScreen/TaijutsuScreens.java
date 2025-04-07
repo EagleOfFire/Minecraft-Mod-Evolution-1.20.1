@@ -73,7 +73,7 @@ public class TaijutsuScreens {
                 (button) -> {
                     if (minecraft != null && minecraft.player != null) {
                         Minecraft.getInstance().setScreen(null);
-                        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementSelectScreen(player));
+                        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpecialisationScreen(player));
                     }
                 });
     }

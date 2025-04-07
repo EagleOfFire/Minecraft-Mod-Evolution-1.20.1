@@ -47,6 +47,16 @@ public class KatonScreens {
 
     private static ResourceLocation cachedTextureLocation;
 
+    static List<String> spellTexts = ModClientConfigs.SPELLS_NAMES.get();
+    static List<String> spellCommands = ModClientConfigs.SPELLS_COMMAND.get();
+    static List<String> spellTextures = ModClientConfigs.SPELLS_ICON_RAW.get();
+    static List<String> spellRanks = ModClientConfigs.SPELLS_RANKS.get();
+    static List<String> spellCategories = ModClientConfigs.SPELLS_CATEGORIES.get();
+
+    static int spellIconWidth;
+    static int spellIconX;
+    static int spellIconY;
+
     private static void init(int width, int height, Minecraft minecraft) {
         rightButtonWidth = 20;
         rightButtonHeight = (int) (1.56 * rightButtonWidth);
@@ -76,6 +86,10 @@ public class KatonScreens {
                         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementSelectScreen(player));
                     }
                 });
+
+        spellIconWidth = width / 10;
+        spellIconX = (width - (5 * spellIconWidth)) / 6;
+        spellIconY = height / 3;
     }
 
     private static void executeCommand(String command, Minecraft minecraft) {
@@ -84,14 +98,14 @@ public class KatonScreens {
         }
     }
 
-    public static void loadButtonsFromConfig(Screen screen, ResourceLocation cachedTextureLocation, int buttonX, int buttonY, int buttonWidth, String command) {
+    public static void loadButtonsFromConfig(Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
         ImageButton button = new ImageButton(
-                buttonX, buttonY, // X and Y position
-                buttonWidth, buttonWidth, // Width and Height
+                spellIconX, spellIconY, // X and Y position
+                spellIconWidth, spellIconWidth, // Width and Height
                 0, 0, // Texture X and Y (start of image)
                 0, // Amount to shift Y on click
                 cachedTextureLocation, // Texture location
-                buttonWidth, buttonWidth, // Total texture size (width, height of full image)
+                spellIconWidth, spellIconWidth, // Total texture size (width, height of full image)
                 (b) -> {
                     screen.getMinecraft();
                     if (screen.getMinecraft().player != null) {
@@ -178,6 +192,30 @@ public class KatonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
+
+            for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
+                if (spellRanks.get(i).equals("S") && spellCategories.get(i).equals("Katon")) {
+                    String textureName = spellTextures.get(i);
+                    DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
+
+                    if (cachedTexture != null) {
+                        cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+                        Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
+                    }
+
+                    String command = spellCommands.get(i);
+
+                    if (cachedTextureLocation != null) {
+                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                    }
+                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                        spellIconX = 0;
+                        spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
+                    } else {
+                        spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
+                    }
+                }
+            }
         }
 
         @Override
@@ -236,6 +274,30 @@ public class KatonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
+
+            for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
+                if (spellRanks.get(i).equals("A") && spellCategories.get(i).equals("Katon")) {
+                    String textureName = spellTextures.get(i);
+                    DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
+
+                    if (cachedTexture != null) {
+                        cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+                        Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
+                    }
+
+                    String command = spellCommands.get(i);
+
+                    if (cachedTextureLocation != null) {
+                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                    }
+                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                        spellIconX = 0;
+                        spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
+                    } else {
+                        spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
+                    }
+                }
+            }
         }
 
         @Override
@@ -294,6 +356,30 @@ public class KatonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
+
+            for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
+                if (spellRanks.get(i).equals("B") && spellCategories.get(i).equals("Katon")) {
+                    String textureName = spellTextures.get(i);
+                    DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
+
+                    if (cachedTexture != null) {
+                        cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+                        Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
+                    }
+
+                    String command = spellCommands.get(i);
+
+                    if (cachedTextureLocation != null) {
+                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                    }
+                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                        spellIconX = 0;
+                        spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
+                    } else {
+                        spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
+                    }
+                }
+            }
         }
 
         @Override
@@ -354,6 +440,30 @@ public class KatonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
+
+            for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
+                if (spellRanks.get(i).equals("C") && spellCategories.get(i).equals("Katon")) {
+                    String textureName = spellTextures.get(i);
+                    DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
+
+                    if (cachedTexture != null) {
+                        cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+                        Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
+                    }
+
+                    String command = spellCommands.get(i);
+
+                    if (cachedTextureLocation != null) {
+                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                    }
+                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                        spellIconX = 0;
+                        spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
+                    } else {
+                        spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
+                    }
+                }
+            }
         }
 
         @Override
@@ -400,34 +510,27 @@ public class KatonScreens {
 
             buttonBack = addRenderableWidget(imageButtonBack);
 
-            List<String> buttonTexts = ModClientConfigs.SPELLS_NAMES.get();
-            List<String> buttonCommands = ModClientConfigs.SPELLS_COMMAND.get();
-            List<String> buttonTextures = ModClientConfigs.SPELLS_ICON_RAW.get();
+            for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
+                if (spellRanks.get(i).equals("D") && spellCategories.get(i).equals("Katon")) {
+                    String textureName = spellTextures.get(i);
+                    DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
 
-            int buttonWidth = this.width / 10;
-            int buttonX = (this.width - (5 * buttonWidth)) / 6;
-            int buttonY = this.height / 3;
+                    if (cachedTexture != null) {
+                        cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+                        Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
+                    }
 
-            for (int i = 0; i < buttonTexts.size() && i < buttonCommands.size(); i++) {
+                    String command = spellCommands.get(i);
 
-                String textureName = buttonTextures.get(i);
-                DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
-
-                if (cachedTexture != null) {
-                    cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
-                    Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
-                }
-
-                String command = buttonCommands.get(i);
-
-                if (cachedTextureLocation != null) {
-                    loadButtonsFromConfig(this, cachedTextureLocation, buttonX, buttonY, buttonWidth, command);
-                }
-                if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
-                    buttonX = 0;
-                    buttonY += buttonWidth + ((this.height - (this.height / 3)) - (3 * buttonWidth)) / 4; // Adjust the increment as needed
-                } else {
-                    buttonX += buttonWidth + (this.width - (5 * buttonWidth)) / 6; // Adjust the increment as needed
+                    if (cachedTextureLocation != null) {
+                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                    }
+                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                        spellIconX = 0;
+                        spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
+                    } else {
+                        spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
+                    }
                 }
             }
         }
