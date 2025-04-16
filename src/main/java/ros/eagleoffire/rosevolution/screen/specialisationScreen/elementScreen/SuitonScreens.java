@@ -352,7 +352,7 @@ public class SuitonScreens {
                             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "C"));
                         }
                     }));
-            
+
             buttonBack = addRenderableWidget(imageButtonBack);
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("B") && spellCategories.get(i).equals("Suiton")) {
@@ -503,11 +503,11 @@ public class SuitonScreens {
                             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, SuitonScreens.element, "C"));
                         }
                     }));
-            
-            
+
+
             buttonBack = addRenderableWidget(imageButtonBack);
 
-                       for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
+            for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("D") && spellCategories.get(i).equals("Suiton")) {
                     String textureName = spellTextures.get(i);
                     DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
