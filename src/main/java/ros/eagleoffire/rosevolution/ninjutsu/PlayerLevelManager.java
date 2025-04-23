@@ -39,7 +39,6 @@ public class PlayerLevelManager {
             applyStatUpgrades(player,cap);
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(cap), (ServerPlayer) player);
             ModMessages.sendToPlayer(new OpenLevelUpScreenS2CPacket(), (ServerPlayer) player);
-            player.sendSystemMessage(Component.literal("Level Up! " + (isChakra ? "Chakra" : "Health") + " increased to level " + newLevel + "!"));
         }
     }
 

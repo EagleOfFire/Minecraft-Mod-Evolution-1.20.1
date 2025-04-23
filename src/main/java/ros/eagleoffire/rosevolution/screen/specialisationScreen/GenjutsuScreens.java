@@ -186,7 +186,7 @@ public class GenjutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "A"));
                         }
                     }));
 
@@ -254,7 +254,7 @@ public class GenjutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "S"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "S"));
                         }
                     }));
 
@@ -267,7 +267,7 @@ public class GenjutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "B"));
                         }
                     }));
 
@@ -335,7 +335,7 @@ public class GenjutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "A"));
                         }
                     }));
 
@@ -348,7 +348,7 @@ public class GenjutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "C"));
                         }
                     }));
 
@@ -418,7 +418,7 @@ public class GenjutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "B"));
                         }
                     }));
 
@@ -431,7 +431,7 @@ public class GenjutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "D"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "D"));
                         }
                     }));
 
@@ -499,7 +499,7 @@ public class GenjutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen( "C"));
                         }
                     }));
 

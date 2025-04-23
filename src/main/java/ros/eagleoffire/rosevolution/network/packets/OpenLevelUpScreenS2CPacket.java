@@ -2,7 +2,10 @@ package ros.eagleoffire.rosevolution.network.packets;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
+import ros.eagleoffire.rosevolution.client.ClientHooks;
 import ros.eagleoffire.rosevolution.ninjutsu.PlayerNinjutsu;
 import ros.eagleoffire.rosevolution.screen.LevelUpScreen;
 
@@ -20,7 +23,7 @@ public class OpenLevelUpScreenS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            Minecraft.getInstance().setScreen(new LevelUpScreen());
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientHooks::openLevelUpScreen);
         });
         return true;
     }

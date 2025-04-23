@@ -46,7 +46,6 @@ public class TravelQuestTracker {
         player.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
             ninjutsu.addExperienceHealth(5);
             PlayerLevelManager.checkLevelUps(player, ninjutsu);
-            player.sendSystemMessage(Component.literal("You have gained 3 Health XP!"));
         });
     }
 

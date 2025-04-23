@@ -48,7 +48,6 @@ public class ActivityQuestTracker {
             ninjutsu.addExperienceChakra(3);
             ninjutsu.addExperienceHealth(3);
             PlayerLevelManager.checkLevelUps(player,ninjutsu);
-            player.sendSystemMessage(Component.literal("You have gained 3 Chakra XP and 3 Health XP!"));
         });
     }
 

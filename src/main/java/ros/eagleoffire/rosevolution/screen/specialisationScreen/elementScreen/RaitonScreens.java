@@ -2,6 +2,7 @@ package ros.eagleoffire.rosevolution.screen.specialisationScreen.elementScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.NotNull;
 import ros.eagleoffire.rosevolution.ROSEvolution;
@@ -21,6 +23,7 @@ import ros.eagleoffire.rosevolution.screen.specialisationScreen.TexturesScreen;
 import java.lang.reflect.Method;
 import java.util.List;
 
+@OnlyIn(Dist.CLIENT)
 public class RaitonScreens {
     private static final int leftPos = 0;
     private static final int topPos = 0;
@@ -98,14 +101,14 @@ public class RaitonScreens {
         }
     }
 
-    public static void loadButtonsFromConfig(Screen screen, ResourceLocation cachedTextureLocation, int buttonX, int buttonY, int buttonWidth, String command) {
+    public static void loadButtonsFromConfig(WidgetAdder adder,Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
         ImageButton button = new ImageButton(
-                buttonX, buttonY, // X and Y position
-                buttonWidth, buttonWidth, // Width and Height
+                spellIconX, spellIconY, // X and Y position
+                spellIconWidth, spellIconWidth, // Width and Height
                 0, 0, // Texture X and Y (start of image)
                 0, // Amount to shift Y on click
                 cachedTextureLocation, // Texture location
-                buttonWidth, buttonWidth, // Total texture size (width, height of full image)
+                spellIconWidth, spellIconWidth, // Total texture size (width, height of full image)
                 (b) -> {
                     screen.getMinecraft();
                     if (screen.getMinecraft().player != null) {
@@ -116,13 +119,7 @@ public class RaitonScreens {
                     }
                 });
 
-        try {
-            Method addWidgetMethod = Screen.class.getDeclaredMethod("addRenderableWidget", GuiEventListener.class);
-            addWidgetMethod.setAccessible(true);
-            addWidgetMethod.invoke(screen, button);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        adder.addWidget(button);
     }
 
     private static void butonBackHover(GuiGraphics graphics) {
@@ -165,17 +162,23 @@ public class RaitonScreens {
         }
     }
 
+    @FunctionalInterface
+    public interface WidgetAdder {
+        void addWidget(AbstractWidget widget);
+    }
+
     public static class RaitonRangSScreen extends Screen {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public RaitonRangSScreen(LocalPlayer player) {
+        public RaitonRangSScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             RaitonScreens.init(this.width, this.height, this.minecraft);
 
             buttonLeft = addRenderableWidget(new ImageButton(
@@ -187,11 +190,12 @@ public class RaitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
                         }
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
+
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("S") && spellCategories.get(i).equals("Raiton")) {
                     String textureName = spellTextures.get(i);
@@ -205,7 +209,7 @@ public class RaitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -220,7 +224,7 @@ public class RaitonScreens {
         @Override
         public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
             renderBackground(graphics);
-            graphics.blit(TexturesScreen.RANG_S_SCREEN, RaitonScreens.leftPos, RaitonScreens.topPos, 0, 0, this.width, this.height, this.width, this.height);
+            graphics.blit(TexturesScreen.RANG_S_SCREEN, leftPos, topPos, 0, 0, this.width, this.height, this.width, this.height);
 
             buttonLeftHover(graphics);
             butonBackHover(graphics);
@@ -237,13 +241,14 @@ public class RaitonScreens {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public RaitonRangAScreen(LocalPlayer player) {
+        public RaitonRangAScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             RaitonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -255,7 +260,7 @@ public class RaitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "S"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "S"));
                         }
                     }));
 
@@ -268,11 +273,12 @@ public class RaitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
                         }
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
+
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("A") && spellCategories.get(i).equals("Raiton")) {
                     String textureName = spellTextures.get(i);
@@ -286,7 +292,7 @@ public class RaitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -318,13 +324,14 @@ public class RaitonScreens {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public RaitonRangBScreen(LocalPlayer player) {
+        public RaitonRangBScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             RaitonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -336,7 +343,7 @@ public class RaitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
                         }
                     }));
 
@@ -349,11 +356,12 @@ public class RaitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
                         }
                     }));
-            
+
             buttonBack = addRenderableWidget(imageButtonBack);
+
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("B") && spellCategories.get(i).equals("Raiton")) {
                     String textureName = spellTextures.get(i);
@@ -367,7 +375,7 @@ public class RaitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -401,13 +409,14 @@ public class RaitonScreens {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public RaitonRangCScreen(LocalPlayer player) {
+        public RaitonRangCScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             RaitonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -419,7 +428,7 @@ public class RaitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
                         }
                     }));
 
@@ -432,11 +441,12 @@ public class RaitonScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "D"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "D"));
                         }
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
+
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("C") && spellCategories.get(i).equals("Raiton")) {
                     String textureName = spellTextures.get(i);
@@ -450,7 +460,7 @@ public class RaitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -482,13 +492,14 @@ public class RaitonScreens {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
 
-        public RaitonRangDScreen(LocalPlayer player) {
+        public RaitonRangDScreen() {
             super(TITLE);
         }
 
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             RaitonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -500,27 +511,37 @@ public class RaitonScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, RaitonScreens.element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
                         }
                     }));
-            
-            
+
             buttonBack = addRenderableWidget(imageButtonBack);
+
+            int size = spellTexts.size();
+            String message = "You have " + size + " spell texts.";
+            Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
 
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("D") && spellCategories.get(i).equals("Raiton")) {
+
+                    message = "spell name " + spellTexts.get(i);
+                    Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
+
                     String textureName = spellTextures.get(i);
                     DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
 
                     if (cachedTexture != null) {
-                        cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+                        cachedTextureLocation = new ResourceLocation(ROSEvolution.MODID, "dynamic_textures/" + textureName);
+                        message = "texture location  " + cachedTextureLocation;
+                        Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
+
                         Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
                     }
 
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;

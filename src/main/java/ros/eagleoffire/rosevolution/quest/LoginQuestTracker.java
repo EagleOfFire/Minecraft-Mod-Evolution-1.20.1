@@ -31,8 +31,6 @@ public class LoginQuestTracker {
             long remainingTime = data.getRemainingCooldownTime();
             long hours = remainingTime / 3600000;
             long minutes = (remainingTime % 3600000) / 3600000;
-            player.sendSystemMessage(Component.literal("Your login quest is on cooldown ! Try again in " +
-                    hours + " hours and " + minutes + " minutes."));
         }
     }
 
@@ -41,7 +39,6 @@ public class LoginQuestTracker {
             ninjutsu.addExperienceHealth(5);
             ninjutsu.addExperienceChakra(5);
             PlayerLevelManager.checkLevelUps(player, ninjutsu);
-            player.sendSystemMessage(Component.literal("You have gained 3 Health XP!"));
         });
     }
 

@@ -187,7 +187,7 @@ public class ClanSpecialisationScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "A"));
                         }
                     }));
 
@@ -255,7 +255,7 @@ public class ClanSpecialisationScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "S"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "S"));
                         }
                     }));
 
@@ -268,7 +268,7 @@ public class ClanSpecialisationScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "B"));
                         }
                     }));
 
@@ -337,7 +337,7 @@ public class ClanSpecialisationScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "A"));
                         }
                     }));
 
@@ -350,7 +350,7 @@ public class ClanSpecialisationScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "C"));
                         }
                     }));
 
@@ -421,7 +421,7 @@ public class ClanSpecialisationScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "B"));
                         }
                     }));
 
@@ -434,7 +434,7 @@ public class ClanSpecialisationScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "D"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "D"));
                         }
                     }));
 
@@ -503,7 +503,7 @@ public class ClanSpecialisationScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen( "C"));
                         }
                     }));
 

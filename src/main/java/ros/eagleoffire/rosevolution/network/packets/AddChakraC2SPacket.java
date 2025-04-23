@@ -12,6 +12,11 @@ public class AddChakraC2SPacket {
     public void toBytes(FriendlyByteBuf buf) {
     }
 
-    public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
+    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
+        NetworkEvent.Context context = supplier.get();
+        context.enqueueWork(() -> {
+            // HERE WE ARE ON THE SERVER
+        });
+        return true;
     }
 }

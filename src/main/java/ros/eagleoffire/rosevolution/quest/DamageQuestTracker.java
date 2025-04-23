@@ -41,7 +41,6 @@ public class DamageQuestTracker {
         player.getCapability(PlayerNinjutsuProvider.PLAYER_NINJUTSU).ifPresent(ninjutsu -> {
             ninjutsu.addExperienceHealth(1); // Reward 1 XP
             PlayerLevelManager.checkLevelUps(player, ninjutsu);
-            player.sendSystemMessage(Component.literal("Quest Complete! You gained 1 XP for dealing and receiving damage."));
         });
     }
 

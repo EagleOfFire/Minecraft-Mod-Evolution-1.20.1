@@ -2,6 +2,7 @@ package ros.eagleoffire.rosevolution.screen.specialisationScreen.elementScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.NotNull;
 import ros.eagleoffire.rosevolution.ROSEvolution;
@@ -21,6 +23,7 @@ import ros.eagleoffire.rosevolution.screen.specialisationScreen.TexturesScreen;
 import java.lang.reflect.Method;
 import java.util.List;
 
+@OnlyIn(Dist.CLIENT)
 public class KatonScreens {
     private static final int leftPos = 0;
     private static final int topPos = 0;
@@ -98,7 +101,7 @@ public class KatonScreens {
         }
     }
 
-    public static void loadButtonsFromConfig(Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
+    public static void loadButtonsFromConfig(WidgetAdder adder,Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
         ImageButton button = new ImageButton(
                 spellIconX, spellIconY, // X and Y position
                 spellIconWidth, spellIconWidth, // Width and Height
@@ -116,13 +119,7 @@ public class KatonScreens {
                     }
                 });
 
-        try {
-            Method addWidgetMethod = Screen.class.getDeclaredMethod("addRenderableWidget", GuiEventListener.class);
-            addWidgetMethod.setAccessible(true);
-            addWidgetMethod.invoke(screen, button);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        adder.addWidget(button);
     }
 
     private static void butonBackHover(GuiGraphics graphics) {
@@ -165,6 +162,11 @@ public class KatonScreens {
         }
     }
 
+    @FunctionalInterface
+    public interface WidgetAdder {
+        void addWidget(AbstractWidget widget);
+    }
+
     public static class KatonRangSScreen extends Screen {
         private static final Component TITLE =
                 Component.translatable("gui." + ROSEvolution.MODID + ".test_screen");
@@ -176,6 +178,7 @@ public class KatonScreens {
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             KatonScreens.init(this.width, this.height, this.minecraft);
 
             buttonLeft = addRenderableWidget(new ImageButton(
@@ -206,7 +209,7 @@ public class KatonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -245,6 +248,7 @@ public class KatonScreens {
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             KatonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -288,7 +292,7 @@ public class KatonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -327,6 +331,7 @@ public class KatonScreens {
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             KatonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -370,7 +375,7 @@ public class KatonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -411,6 +416,7 @@ public class KatonScreens {
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             KatonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -454,7 +460,7 @@ public class KatonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -493,6 +499,7 @@ public class KatonScreens {
         @Override
         protected void init() {
             super.init();
+            WidgetAdder adder = this::addRenderableWidget;
             KatonScreens.init(this.width, this.height, this.minecraft);
 
             buttonRight = addRenderableWidget(new ImageButton(
@@ -516,14 +523,14 @@ public class KatonScreens {
                     DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
 
                     if (cachedTexture != null) {
-                        cachedTextureLocation = new ResourceLocation("modid", "dynamic_textures/" + textureName);
+                        cachedTextureLocation = new ResourceLocation(ROSEvolution.MODID, "dynamic_textures/" + textureName);
                         Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
                     }
 
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;

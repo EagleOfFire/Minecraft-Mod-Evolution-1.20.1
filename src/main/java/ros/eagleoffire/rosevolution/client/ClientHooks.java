@@ -7,6 +7,10 @@ import ros.eagleoffire.rosevolution.screen.specialisationScreen.*;
 import ros.eagleoffire.rosevolution.screen.specialisationScreen.elementScreen.*;
 
 public class ClientHooks {
+    public static void openLevelUpScreen(){
+        Minecraft.getInstance().setScreen(new LevelUpScreen());
+    }
+
     public static void openSpellSelectScreen(LocalPlayer player) {
         Minecraft.getInstance().setScreen(new SpellSelectScreen(player));
     }
@@ -128,38 +132,38 @@ public class ClientHooks {
             case "Doton":
                 switch (rank) {
                     case "D":
-                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangDScreen(player));
+                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangDScreen());
                         break;
                     case "C":
-                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangCScreen(player));
+                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangCScreen());
                         break;
                     case "B":
-                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangBScreen(player));
+                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangBScreen());
                         break;
                     case "A":
-                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangAScreen(player));
+                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangAScreen());
                         break;
                     case "S":
-                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangSScreen(player));
+                        Minecraft.getInstance().setScreen(new DotonScreens.DotonRangSScreen());
                         break;
                 }
                 break;
             case "Futon":
                 switch (rank) {
                     case "D":
-                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangDScreen(player));
+                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangDScreen());
                         break;
                     case "C":
-                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangCScreen(player));
+                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangCScreen());
                         break;
                     case "B":
-                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangBScreen(player));
+                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangBScreen());
                         break;
                     case "A":
-                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangAScreen(player));
+                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangAScreen());
                         break;
                     case "S":
-                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangSScreen(player));
+                        Minecraft.getInstance().setScreen(new FutonScreens.FutonRangSScreen());
                         break;
                 }
                 break;
@@ -185,38 +189,38 @@ public class ClientHooks {
             case "Raiton":
                 switch (rank) {
                     case "D":
-                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangDScreen(player));
+                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangDScreen());
                         break;
                     case "C":
-                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangCScreen(player));
+                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangCScreen());
                         break;
                     case "B":
-                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangBScreen(player));
+                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangBScreen());
                         break;
                     case "A":
-                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangAScreen(player));
+                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangAScreen());
                         break;
                     case "S":
-                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangSScreen(player));
+                        Minecraft.getInstance().setScreen(new RaitonScreens.RaitonRangSScreen());
                         break;
                 }
                 break;
             case "Suiton":
                 switch (rank) {
                     case "D":
-                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangDScreen(player));
+                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangDScreen());
                         break;
                     case "C":
-                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangCScreen(player));
+                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangCScreen());
                         break;
                     case "B":
-                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangBScreen(player));
+                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangBScreen());
                         break;
                     case "A":
-                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangAScreen(player));
+                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangAScreen());
                         break;
                     case "S":
-                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangSScreen(player));
+                        Minecraft.getInstance().setScreen(new SuitonScreens.SuitonRangSScreen());
                         break;
                 }
                 break;

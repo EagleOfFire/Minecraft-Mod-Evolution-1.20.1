@@ -187,7 +187,7 @@ public class TaijutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "A"));
                         }
                     }));
 
@@ -255,7 +255,7 @@ public class TaijutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "S"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "S"));
                         }
                     }));
 
@@ -268,7 +268,7 @@ public class TaijutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "B"));
                         }
                     }));
 
@@ -336,7 +336,7 @@ public class TaijutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "A"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "A"));
                         }
                     }));
 
@@ -349,7 +349,7 @@ public class TaijutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "C"));
                         }
                     }));
 
@@ -419,7 +419,7 @@ public class TaijutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "B"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "B"));
                         }
                     }));
 
@@ -432,7 +432,7 @@ public class TaijutsuScreens {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "D"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "D"));
                         }
                     }));
 
@@ -500,7 +500,7 @@ public class TaijutsuScreens {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, "C"));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen( "C"));
                         }
                     }));
 
