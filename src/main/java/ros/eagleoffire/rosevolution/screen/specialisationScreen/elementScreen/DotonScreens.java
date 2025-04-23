@@ -101,7 +101,7 @@ public class DotonScreens {
         }
     }
 
-    public static void loadButtonsFromConfig(WidgetAdder adder,Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
+    public static void loadButtonsFromConfig(WidgetAdder adder, Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
         ImageButton button = new ImageButton(
                 spellIconX, spellIconY, // X and Y position
                 spellIconWidth, spellIconWidth, // Width and Height
@@ -209,7 +209,7 @@ public class DotonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -292,7 +292,7 @@ public class DotonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -375,7 +375,7 @@ public class DotonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -460,7 +460,7 @@ public class DotonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
@@ -517,31 +517,20 @@ public class DotonScreens {
 
             buttonBack = addRenderableWidget(imageButtonBack);
 
-            int size = spellTexts.size();
-            String message = "You have " + size + " spell texts.";
-            Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
-
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("D") && spellCategories.get(i).equals("Doton")) {
-
-                    message = "spell name " + spellTexts.get(i);
-                    Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
-
                     String textureName = spellTextures.get(i);
                     DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
 
                     if (cachedTexture != null) {
                         cachedTextureLocation = new ResourceLocation(ROSEvolution.MODID, "dynamic_textures/" + textureName);
-                        message = "texture location  " + cachedTextureLocation;
-                        Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
-
                         Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
                     }
 
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
                     if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;

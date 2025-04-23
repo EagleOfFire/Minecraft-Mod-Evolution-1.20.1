@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import ros.eagleoffire.rosevolution.ROSEvolution;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.entity.player.Player;
+import ros.eagleoffire.rosevolution.screen.specialisationScreen.TexturesScreen;
 import ros.eagleoffire.rosevolution.sound.ModSounds;
 
 public class LevelUpScreen extends Screen {
@@ -19,20 +20,20 @@ public class LevelUpScreen extends Screen {
 
     private static final ResourceLocation LEVEL_UP_GIF = new ResourceLocation(ROSEvolution.MODID, "textures/gui/evosys_levelup.png");
 
-    private final int imageWidth, imageHeight;
+    private int imageWidth;
+    private int imageHeight;
     private final Object Context;
     private int ticksRemaining;
     private int leftPos, topPos;
     private Player player;
-    private static final int DISPLAY_DURATION = 75; // Duration in ticks (5 seconds, 20 ticks per second)
+    private static final int DISPLAY_DURATION = 40; // Duration in ticks (20 ticks per second)
+    private static SimpleSoundInstance levelUpSoundInstance;
 
 
     public LevelUpScreen() {
         super(TITLE);
         this.Context = null;
         this.player = null;
-        this.imageWidth = 1920;
-        this.imageHeight = 1920;
         this.ticksRemaining = DISPLAY_DURATION;
     }
 
@@ -40,17 +41,12 @@ public class LevelUpScreen extends Screen {
         super(TITLE);
         this.Context = null;
         this.player = Player;
-        this.imageWidth = 1920;
-        this.imageHeight = 1920;
         this.ticksRemaining = DISPLAY_DURATION;
     }
 
     public LevelUpScreen(UseOnContext pContext) {
         super(TITLE);
-
         this.Context = pContext;
-        this.imageWidth = 1920;
-        this.imageHeight = 1920;
         this.ticksRemaining = DISPLAY_DURATION;
     }
 
@@ -68,23 +64,37 @@ public class LevelUpScreen extends Screen {
     protected void init() {
         super.init();
 
-        this.leftPos = (this.width - this.imageWidth) / 2;
-        this.topPos = (this.height - this.imageHeight) / 2;
+        this.width = this.minecraft.getWindow().getGuiScaledWidth();
+        this.height = this.minecraft.getWindow().getGuiScaledHeight();
+        this.imageWidth = this.width;
+        this.imageHeight = this.height;
+
+        this.leftPos = 0;
+        this.topPos = 0;
     }
 
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         super.renderBackground(graphics);
-        int screenWidth = this.width;
-        int screenHeight = this.height;
-        int gifWidth = 128; // Example size, adjust as needed
-        int gifHeight = 128;
 
         RenderSystem.setShaderTexture(0, LEVEL_UP_GIF);
-        graphics.blit(LEVEL_UP_GIF, (screenWidth - gifWidth) / 2, (screenHeight - gifHeight) / 2, 0, 0, gifWidth, gifHeight, gifWidth, gifHeight);
-        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.LEVEL_UP_SOUND.get(), 1f,100f));
+        graphics.blit(LEVEL_UP_GIF, 0, 0, 0, 0, this.imageWidth, this.imageHeight, this.width, this.height);
+        playLevelUpSound();
         super.render(graphics, mouseX, mouseY, partialTicks);
     }
+
+    private void playLevelUpSound() {
+        if (levelUpSoundInstance == null
+                || !Minecraft.getInstance().getSoundManager().isActive(levelUpSoundInstance)) {
+
+            levelUpSoundInstance = SimpleSoundInstance.forUI(
+                    ModSounds.LEVEL_UP_SOUND.get(), 1f, 1f);
+            Minecraft.getInstance()
+                    .getSoundManager()
+                    .play(levelUpSoundInstance);
+        }
+    }
+
 
     @Override
     public boolean isPauseScreen() {

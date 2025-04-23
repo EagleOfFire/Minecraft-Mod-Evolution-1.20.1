@@ -517,24 +517,13 @@ public class RaitonScreens {
 
             buttonBack = addRenderableWidget(imageButtonBack);
 
-            int size = spellTexts.size();
-            String message = "You have " + size + " spell texts.";
-            Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
-
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("D") && spellCategories.get(i).equals("Raiton")) {
-
-                    message = "spell name " + spellTexts.get(i);
-                    Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
-
                     String textureName = spellTextures.get(i);
                     DynamicTexture cachedTexture = ModClientConfigs.getButtonImages().get(textureName);
 
                     if (cachedTexture != null) {
                         cachedTextureLocation = new ResourceLocation(ROSEvolution.MODID, "dynamic_textures/" + textureName);
-                        message = "texture location  " + cachedTextureLocation;
-                        Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
-
                         Minecraft.getInstance().getTextureManager().register(cachedTextureLocation, cachedTexture);
                     }
 
