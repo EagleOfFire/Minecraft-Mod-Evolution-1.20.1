@@ -85,12 +85,11 @@ public class SuitonScreens {
                 backButtonWidth, backButtonHeight, // Total texture size (width, height of full image)
                 (button) -> {
                     if (minecraft != null && minecraft.player != null) {
-                        Minecraft.getInstance().setScreen(null);
                         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementSelectScreen(player));
                     }
                 });
 
-        spellIconWidth = width / 10;
+        spellIconWidth = width / 15;
         spellIconX = (width - (5 * spellIconWidth)) / 6;
         spellIconY = height / 3;
     }
@@ -101,7 +100,7 @@ public class SuitonScreens {
         }
     }
 
-    public static void loadButtonsFromConfig(WidgetAdder adder,Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
+    public static void loadButtonsFromConfig(WidgetAdder adder, Screen screen, ResourceLocation cachedTextureLocation, int spellIconX, int spellIconY, int spellIconWidth, String command) {
         ImageButton button = new ImageButton(
                 spellIconX, spellIconY, // X and Y position
                 spellIconWidth, spellIconWidth, // Width and Height
@@ -115,7 +114,6 @@ public class SuitonScreens {
                         String playerName = screen.getMinecraft().player.getGameProfile().getName();
                         String processedCommand = command.replace("@s", playerName);
                         executeCommand(processedCommand, screen.getMinecraft());
-                        Minecraft.getInstance().setScreen(null);
                     }
                 });
 
@@ -195,7 +193,7 @@ public class SuitonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
-
+            int a = 0;
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("S") && spellCategories.get(i).equals("Suiton")) {
                     String textureName = spellTextures.get(i);
@@ -209,14 +207,15 @@ public class SuitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
-                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                    if ((a + 1) % 5 == 0 && a != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
                         spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
                     } else {
                         spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
                     }
+                    a++;
                 }
             }
         }
@@ -278,7 +277,7 @@ public class SuitonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
-
+            int a = 0;
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("A") && spellCategories.get(i).equals("Suiton")) {
                     String textureName = spellTextures.get(i);
@@ -292,14 +291,15 @@ public class SuitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
-                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                    if ((a + 1) % 5 == 0 && a != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
                         spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
                     } else {
                         spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
                     }
+                    a++;
                 }
             }
         }
@@ -361,7 +361,7 @@ public class SuitonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
-
+            int a = 0;
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("B") && spellCategories.get(i).equals("Suiton")) {
                     String textureName = spellTextures.get(i);
@@ -375,14 +375,15 @@ public class SuitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
-                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                    if ((a + 1) % 5 == 0 && a != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
                         spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
                     } else {
                         spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
                     }
+                    a++;
                 }
             }
         }
@@ -446,7 +447,7 @@ public class SuitonScreens {
                     }));
 
             buttonBack = addRenderableWidget(imageButtonBack);
-
+            int a = 0;
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("C") && spellCategories.get(i).equals("Suiton")) {
                     String textureName = spellTextures.get(i);
@@ -460,14 +461,15 @@ public class SuitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
-                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                    if ((a + 1) % 5 == 0 && a != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
                         spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
                     } else {
                         spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
                     }
+                    a++;
                 }
             }
         }
@@ -520,7 +522,7 @@ public class SuitonScreens {
             int size = spellTexts.size();
             String message = "You have " + size + " spell texts.";
             Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
-
+            int a = 0;
             for (int i = 0; i < spellTexts.size() && i < spellCommands.size(); i++) {
                 if (spellRanks.get(i).equals("D") && spellCategories.get(i).equals("Suiton")) {
 
@@ -541,14 +543,15 @@ public class SuitonScreens {
                     String command = spellCommands.get(i);
 
                     if (cachedTextureLocation != null) {
-                        loadButtonsFromConfig(adder,this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
+                        loadButtonsFromConfig(adder, this, cachedTextureLocation, spellIconX, spellIconY, spellIconWidth, command);
                     }
-                    if ((i + 1) % 5 == 0 && i != 0) {  // Every 5th iteration (excluding 0)
+                    if ((a + 1) % 5 == 0 && a != 0) {  // Every 5th iteration (excluding 0)
                         spellIconX = 0;
                         spellIconY += spellIconWidth + ((this.height - (this.height / 3)) - (3 * spellIconWidth)) / 4; // Adjust the increment as needed
                     } else {
                         spellIconX += spellIconWidth + (this.width - (5 * spellIconWidth)) / 6; // Adjust the increment as needed
                     }
+                    a++;
                 }
             }
         }

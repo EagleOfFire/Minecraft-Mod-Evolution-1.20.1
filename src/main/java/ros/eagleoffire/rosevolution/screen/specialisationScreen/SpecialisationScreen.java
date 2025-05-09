@@ -55,22 +55,16 @@ public class SpecialisationScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int pButton) {
         int posCursor = getSectorID(mouseX, this.width);
         if (posCursor == 1) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementSelectScreen(player));
         } else if (posCursor == 2) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openMedicalScreen("D"));
         } else if (posCursor == 3) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen("D"));
         } else if (posCursor == 4) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openKenjutsuScreen("D"));
         } else if (posCursor == 5) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen("D"));
         } else if (posCursor == 6) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen("D"));
         }
         return super.mouseClicked(mouseX, mouseY, pButton);
@@ -87,9 +81,10 @@ public class SpecialisationScreen extends Screen {
             return 4;
         } else if (((double) width / 6) * 4 < mouseX && mouseX < ((double) width / 6) * 5) {
             return 5;
-        } else {
+        } else if (((double) width / 6) * 5 < mouseX && mouseX < ((double) width / 6) * 6) {
             return 6;
         }
+        return 0;
     }
 
 

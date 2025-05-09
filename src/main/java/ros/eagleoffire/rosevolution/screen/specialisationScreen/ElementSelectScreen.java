@@ -50,7 +50,6 @@ public class ElementSelectScreen extends Screen {
                 backButtonWidth, backButtonHeight, // Total texture size (width, height of full image)
                 (button) -> {
                     if (minecraft != null && minecraft.player != null) {
-                        Minecraft.getInstance().setScreen(null);
                         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpecialisationScreen(player));
                     }
                 }));
@@ -93,19 +92,14 @@ public class ElementSelectScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int pButton) {
         int posCursor = getSectorID(mouseX,mouseY, this.width,this.height);
         if (posCursor == 1) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, "Katon", "D"));
         } else if (posCursor == 2) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, "Suiton", "D"));
         } else if (posCursor == 3) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, "Futon", "D"));
         } else if (posCursor == 4) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, "Doton", "D"));
         } else if (posCursor == 5) {
-            Minecraft.getInstance().setScreen(null);
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, "Raiton", "D"));
         }
         return super.mouseClicked(mouseX, mouseY, pButton);
@@ -123,9 +117,10 @@ public class ElementSelectScreen extends Screen {
             return 3;
         } else if (((double) width / 5)*3 < mouseX && mouseX < ((double) width / 4)*3) {
             return 4;
-        } else {
+        } else if (((double) width / 5)*4 < mouseX && mouseX < ((double) width / 4)*5) {
             return 5;
         }
+        return 0;
     }
 
 

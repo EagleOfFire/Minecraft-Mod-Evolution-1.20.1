@@ -82,7 +82,6 @@ public class GenjutsuScreens {
                 backButtonWidth, backButtonHeight, // Total texture size (width, height of full image)
                 (button) -> {
                     if (minecraft != null && minecraft.player != null) {
-                        Minecraft.getInstance().setScreen(null);
                         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpecialisationScreen(player));
                     }
                 });
@@ -111,7 +110,6 @@ public class GenjutsuScreens {
                         String playerName = screen.getMinecraft().player.getGameProfile().getName();
                         String processedCommand = command.replace("@s", playerName);
                         executeCommand(processedCommand, screen.getMinecraft());
-                        Minecraft.getInstance().setScreen(null);
                     }
                 });
 

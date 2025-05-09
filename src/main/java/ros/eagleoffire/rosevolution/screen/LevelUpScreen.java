@@ -1,8 +1,10 @@
 package ros.eagleoffire.rosevolution.screen;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,6 +27,7 @@ public class LevelUpScreen extends Screen {
     private int leftPos, topPos;
     private Player player;
     private static final int DISPLAY_DURATION = 75; // Duration in ticks (5 seconds, 20 ticks per second)
+    private boolean soundPlayed = false; // Add this flag
 
 
     public LevelUpScreen() {
@@ -74,15 +77,35 @@ public class LevelUpScreen extends Screen {
 
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        super.renderBackground(graphics);
+                RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        RenderSystem.enableBlend();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO
+        );
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int screenWidth = this.width;
         int screenHeight = this.height;
-        int gifWidth = 128; // Example size, adjust as needed
+        int gifWidth = this.width; // Example size, adjust as needed
         int gifHeight = 128;
 
         RenderSystem.setShaderTexture(0, LEVEL_UP_GIF);
         graphics.blit(LEVEL_UP_GIF, (screenWidth - gifWidth) / 2, (screenHeight - gifHeight) / 2, 0, 0, gifWidth, gifHeight, gifWidth, gifHeight);
-        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.LEVEL_UP_SOUND.get(), 1f,100f));
+        // Only play the sound once
+        if (!soundPlayed) {
+            Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.LEVEL_UP_SOUND.get(), 1f, 1f));
+            soundPlayed = true;
+        }
+
+        RenderSystem.depthMask(true);
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
+        RenderSystem.disableBlend();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         super.render(graphics, mouseX, mouseY, partialTicks);
     }
 
