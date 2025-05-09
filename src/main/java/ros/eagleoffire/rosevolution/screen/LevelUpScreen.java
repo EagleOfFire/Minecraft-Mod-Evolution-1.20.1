@@ -30,7 +30,6 @@ public class LevelUpScreen extends Screen {
     private Player player;
     private static final int DISPLAY_DURATION = 40; // Duration in ticks (20 ticks per second)
     private static SimpleSoundInstance levelUpSoundInstance;
-    private static final int DISPLAY_DURATION = 75; // Duration in ticks (5 seconds, 20 ticks per second)
     private boolean soundPlayed = false; // Add this flag
 
 
