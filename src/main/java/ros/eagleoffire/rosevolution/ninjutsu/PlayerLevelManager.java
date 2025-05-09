@@ -21,12 +21,14 @@ public class PlayerLevelManager {
     }
 
     private static void checkLevelUp(Player player, PlayerNinjutsu cap, int experience, int currentLevel, boolean isChakra) {
-        int newLevel = currentLevel;
-        int requiredXp = getXpForNextLevel(currentLevel + 1); // Next level threshold
+        int newLevel = 0;
+        int totalXp = 0;
 
-        while (experience >= requiredXp) {
+        while (true) {
+            int xpForNext = getXpForNextLevel(newLevel + 1);
+            if (experience < xpForNext) break;
+            experience -= xpForNext;
             newLevel++;
-            requiredXp = getXpForNextLevel(newLevel + 1); // Calculate next level threshold
         }
 
         if (newLevel != currentLevel) {
@@ -36,11 +38,12 @@ public class PlayerLevelManager {
                 cap.setLevelHealth(newLevel);
             }
 
-            applyStatUpgrades(player,cap);
+            applyStatUpgrades(player, cap);
             ModMessages.sendToPlayer(new NinjutsuDataSyncS2CPacket(cap), (ServerPlayer) player);
             ModMessages.sendToPlayer(new OpenLevelUpScreenS2CPacket(), (ServerPlayer) player);
         }
     }
+
 
     public static int getXpForNextLevel(int level) {
         if (level <= 190) return level * 15;
