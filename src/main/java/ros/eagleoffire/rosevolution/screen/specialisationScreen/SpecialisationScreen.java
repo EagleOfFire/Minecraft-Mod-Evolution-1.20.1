@@ -57,15 +57,15 @@ public class SpecialisationScreen extends Screen {
         if (posCursor == 1) {
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementSelectScreen(player));
         } else if (posCursor == 2) {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openMedicalScreen("D"));
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen("Medical","D"));
         } else if (posCursor == 3) {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openGenjutsuScreen("D"));
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen("Genjutsu","D"));
         } else if (posCursor == 4) {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openKenjutsuScreen("D"));
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen("Kenjutsu","D"));
         } else if (posCursor == 5) {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openTaijutsuScreen("D"));
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen("Taijutsu","D"));
         } else if (posCursor == 6) {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openClanSpecialisationScreen("D"));
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen("Clan Specialisation","D"));
         }
         return super.mouseClicked(mouseX, mouseY, pButton);
     }

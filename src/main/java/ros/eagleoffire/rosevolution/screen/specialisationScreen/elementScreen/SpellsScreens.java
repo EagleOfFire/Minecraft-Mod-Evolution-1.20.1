@@ -117,7 +117,11 @@ public class SpellsScreens extends Screen {
                 backButtonWidth, backButtonHeight, // Total texture size (width, height of full image)
                 (button) -> {
                     if (minecraft != null && minecraft.player != null) {
-                        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementSelectScreen(player));
+                        if (element.equals("Katon") || element.equals("Suiton") || element.equals("Doton") || element.equals("Fuuton") || element.equals("Raiton")) {
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementSelectScreen(player));
+                        } else {
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpecialisationScreen(player));
+                        }
                     }
                 });
 
@@ -137,7 +141,7 @@ public class SpellsScreens extends Screen {
                     rightButtonWidth, rightButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, numberToStatus(statusToNumber(rank) + 1)));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen(element, numberToStatus(statusToNumber(rank) + 1)));
                         }
                     }));
         }
@@ -152,7 +156,7 @@ public class SpellsScreens extends Screen {
                     leftButtonWidth, leftButtonHeight, // Total texture size (width, height of full image)
                     (button) -> {
                         if (this.minecraft != null && this.minecraft.player != null) {
-                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openElementRankScreen(player, element, numberToStatus(statusToNumber(rank) - 1)));
+                            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openSpellSelectScreen(element, numberToStatus(statusToNumber(rank) - 1)));
                         }
                     }));
         }
