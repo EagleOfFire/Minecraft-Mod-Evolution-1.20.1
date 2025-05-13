@@ -1,11 +1,10 @@
-package ros.eagleoffire.rosevolution.screen.specialisationScreen.elementScreen;
+package ros.eagleoffire.rosevolution.screen.specialisationScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -18,9 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import ros.eagleoffire.rosevolution.ROSEvolution;
 import ros.eagleoffire.rosevolution.client.ClientHooks;
 import ros.eagleoffire.rosevolution.config.ModClientConfigs;
-import ros.eagleoffire.rosevolution.screen.specialisationScreen.TexturesScreen;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Objects;
 import java.util.Map;
